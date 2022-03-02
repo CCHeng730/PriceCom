@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-      <base href="../">
-      <meta charset="utf-8" />
-      <title>PriceCom | Admin</title>
-      <link href="assets/app.css" rel="stylesheet" type="text/css" />
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    </head>
-    <body>
-      <div class="tw-text-blue-500">Pundek Hang</div>
-    </body>
-</html>
+<div id="kt_header" class="header header-fixed">
+    <!--begin::Container-->
+    <div class="container-fluid d-flex align-items-stretch justify-content-between">
+        <!--begin::Header Menu Wrapper-->
+        <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
+        </div>
+        <!--end::Header Menu Wrapper-->
+        <!--begin::Topbar-->
+        <div class="topbar">
+            <!--begin::User-->
+            <div class="topbar-item">
+                <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
+                        <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
+                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">PriceCom</span>
+                        <span class="symbol symbol-35 symbol-light-success">
+                            <span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="dropdown-menu"style="text-align:start; width:12rem;">
+                    <div class="pr-5 pt-2 tw-w-full">
+                        <a href="#">
+                            <i style="width: 35%" class="tw-text-center fas fa-user fa-lg"></i>
+                            <span style="width:65%; color:black; font-size:14px; font-weight: normal;">Profile
+                        </a>
+                    </div>
+                    <div class="pr-5 pt-2 tw-w-full">
+                        <a href="#" style="cursor: pointer;">
+                            <i style="width: 35%" class="tw-text-center fas fa-sign-out-alt fa-lg"></i>
+                            <span style="width:65%; color:black; font-size:14px; font-weight: normal;">Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--end::User-->
+        </div>
+        <!--end::Topbar-->
+    </div>
+    <!--end::Container-->
+</div>
