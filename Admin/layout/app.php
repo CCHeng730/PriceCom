@@ -18,7 +18,7 @@
         <div id="app">   
             <main class="pt-4">
                 <?php include "../layout/header.php" ?>
-                <?php include "../layout/side_panel.php" ?>
+                <?php include "../layout/sidepanel.php" ?>
             </main>
         </div>
     </body>

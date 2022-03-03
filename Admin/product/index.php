@@ -45,8 +45,11 @@
                     </div>
                 </div>
                 <div class="btn-group ml-2">
-                    <a href="#" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+                    <a href="Admin/product/create.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
                         New Product
+                    </a>
+                    <a href="Admin/product/show.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+                        View Product
                     </a>
                 </div>
                 <!--end::Toolbar-->

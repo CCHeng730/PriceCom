@@ -44,6 +44,11 @@
                         </form>
                     </div>
                 </div>
+                <div class="btn-group ml-2">
+                    <a href="Admin/user/show.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+                        View User
+                    </a>
+                </div>
                 <!--end::Toolbar-->
             </div>
         </div>
