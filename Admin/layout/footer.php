@@ -1,1 +1,0 @@
-<div class="tw-text-blue-500">Footer</div>
