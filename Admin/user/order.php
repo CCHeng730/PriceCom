@@ -79,12 +79,12 @@
                                             <div class="tw-p-6">
                                                 <table class="table table-checkable dataTable dtr-inline w-100 tw-font-medium" id="datatable">
                                                     <thead>
-                                                    <tr class="tw-border-b-2 tw-b-gray-300">
-                                                        <th style="width: 20%">Order ID</th>
-                                                        <th style="width: 40%">Product</th>
-                                                        <th style="width: 20%">Price</th>
-                                                        <th style="width: 20%"></th>
-                                                    </tr>
+                                                        <tr class="tw-border-b-2 tw-b-gray-300">
+                                                            <th style="width: 20%">Order ID</th>
+                                                            <th style="width: 40%">Product</th>
+                                                            <th style="width: 20%">Price</th>
+                                                            <th style="width: 20%"></th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
@@ -95,7 +95,7 @@
                                                                 Product Name 01
                                                             </td>
                                                             <td>
-                                                                RM 00.00
+                                                                RM 01.00
                                                             </td>
                                                             <td class="tw-text-center">
                                                                 <a href="Admin/user/order_detail.php" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
@@ -118,4 +118,17 @@
             <!--end::Content-->
         </div>
     </body>
+    <script>
+        $(document).ready( function () {
+            dTable=$('#datatable').DataTable({
+                "paging":true,
+                "bFilter": true,
+                "ordering": true,
+                "lengthChange": false
+            });
+        });
+        $('#search').keyup(function() {
+            dTable.search($(this).val()).draw();
+        })
+    </script>
 </html>
