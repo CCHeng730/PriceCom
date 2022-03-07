@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     <li class="tw-px-2 tw-w-full">
-                        <a href="User/auth/login.php" class="tw-no-underline tw-w-full">
+                        <a href="User/auth/logout.php"  class="tw-no-underline tw-w-full">
                             <div class="tw-px-3 tw-py-3 hover:tw-bg-gray-200 tw-rounded tw-w-full">
                                 <span class="tw-font-semibold tw-text-black tw-mr-2" style="font-size: 16px;"><i class="fas fa-sign-out-alt"></i></span>
                                 <span class="tw-font-semibold tw-text-black" style="font-size: 16px;">Log Out</span>
