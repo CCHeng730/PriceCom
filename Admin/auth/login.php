@@ -42,7 +42,8 @@
 								<div class="form-group mb-5">
 									<input class="form-control h-auto form-control-solid py-4 px-8" id="password" type="password" placeholder="Password" name="password" required autocomplete="current-password" />
                                 </div>
-								<button type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Sign In</button>
+								<a href="Admin/admin/index.php" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Sign In</a>
+								<!-- <button type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Sign In</button> -->
 							</div>
 						</div>
 						<!--end::Login Sign in form-->

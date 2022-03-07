@@ -48,12 +48,6 @@
                     <a href="Admin/category/create.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
                         New Category
                     </a>
-                    <a href="Admin/category/show.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-                        View Category
-                    </a>
-                    <a href="Admin/category/edit.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-                        Edit Category
-                    </a>
                 </div>
                 <!--end::Toolbar-->
             </div>
