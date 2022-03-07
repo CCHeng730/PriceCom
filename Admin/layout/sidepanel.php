@@ -9,6 +9,7 @@
         <!--end::Logo-->
     </div>
     <!--end::Brand-->
+    
     <!--begin::Aside Menu-->
     <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
         <!--begin::Menu Container-->
@@ -23,7 +24,11 @@
                 <li class="tw-w-full" aria-haspopup="true" data-menu-toggle="hover">
                     <div class="tw-pr-6 tw-py-1">
                       <a href="Admin/admin/index.php">
-                        <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php if (getcwd() == "C:\laragon\www\PriceCom\Admin\admin") { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold tw-bg-white tw-bg-opacity-50 tw-text-black">
+                        <?php } else { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php } ?>
                           <span style="font-size: 16px" class="far fa-user tw-mx-4 tw-opacity-40"></span>
                           Admin
                         </div>
@@ -33,7 +38,11 @@
                 <li class="tw-w-full" aria-haspopup="true" data-menu-toggle="hover">
                     <div class="tw-pr-6 tw-py-1">
                       <a href="Admin/user/index.php">
-                        <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php if (getcwd() == "C:\laragon\www\PriceCom\Admin\user") { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold tw-bg-white tw-bg-opacity-50 tw-text-black">
+                        <?php } else { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php } ?>
                           <span style="font-size: 16px" class="fas fa-user tw-mx-4 tw-opacity-40"></span>
                           User
                         </div>
@@ -50,7 +59,11 @@
                 <li class="tw-w-full" aria-haspopup="true" data-menu-toggle="hover">
                     <div class="tw-pr-6 tw-py-1">
                       <a href="Admin/category/index.php">
-                        <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php if (getcwd() == "C:\laragon\www\PriceCom\Admin\category") { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold tw-bg-white tw-bg-opacity-50 tw-text-black">
+                        <?php } else { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php } ?>
                           <span style="font-size: 16px" class="fa-shapes fas tw-mx-4 tw-opacity-40"></span>
                           Category
                         </div>
@@ -67,7 +80,11 @@
                 <li class="tw-w-full" aria-haspopup="true" data-menu-toggle="hover">
                     <div class="tw-pr-6 tw-py-1">
                       <a href="Admin/product/index.php">
-                        <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php if (getcwd() == "C:\laragon\www\PriceCom\Admin\product") { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold tw-bg-white tw-bg-opacity-50 tw-text-black">
+                        <?php } else { ?>
+                          <div class="tw-pl-6 tw-py-3 tw-rounded tw-font-semibold hover:tw-bg-white hover:tw-bg-opacity-50 hover:tw-text-black">
+                        <?php } ?>
                           <span style="font-size: 16px" class="fas fa-dolly-flatbed tw-mx-4 tw-opacity-40"></span>
                           Product
                         </div>
