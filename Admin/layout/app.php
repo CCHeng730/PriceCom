@@ -4,6 +4,7 @@
         <base href="../">
         <meta charset="utf-8" />
         <title>PriceCom | Admin</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link href="assets/app.css" rel="stylesheet" type="text/css" />
         <link href="assets/admin/plugins/global/plugins.bundle.css" rel="stylesheet"/>
         <link href="assets/admin/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet"/>
@@ -12,7 +13,12 @@
         <link href="assets/admin/css/themes/layout/header/menu/light.css" rel="stylesheet"/>
         <link href="assets/admin/css/themes/layout/brand/dark.css" rel="stylesheet"/>
         <link href="assets/admin/css/themes/layout/aside/dark.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+        <link href="assets/admin/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet">
+        <style>
+            .dataTables_filter {
+                display: none;
+            }
+        </style>
     </head>
     <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
         <div id="app">   
@@ -32,4 +38,6 @@
     <script src="assets/admin/js/scripts.bundle.js"></script>
     <script type="text/javascript" src="assets/admin/plugins/custom/datatables/datatables.bundle.js" defer></script>
     <script type="text/javascript" src="assets/admin/js/pages/crud/datatables/basic/scrollable.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 </html>

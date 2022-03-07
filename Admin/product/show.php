@@ -121,9 +121,39 @@
                                             <span class="card-label font-weight-bolder text-dark">Store</span>
                                             <span class="d-block text-muted mt-2 font-size-sm">Product store list</span>
                                         </h3>
-                                        <a href="#" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 tw-my-3 font-size-base">
-                                            Add Store
-                                        </a>
+                                        <button type="button" class="btn btn-primary font-weight-bold btn-sm px-3 tw-my-3 font-size-base" data-toggle="modal" data-target="#addStore">Add Store</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="addStore" tabindex="-1" role="dialog" aria-labelledby="addStoreTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div>
+                                                        <h5 class="modal-title" id="addStoreTitle">Add Store</h5>
+                                                        <div class="d-block text-muted mt-2 font-size-sm">Add a store with price for this product</div>
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-3 tw-mb-2 text-lg-right text-left">Store Name</label>
+                                                        <div class="col-9 tw-mb-5">
+                                                            <input class="form-control form-control-lg form-control-solid" type="text" name="name" placeholder="Name" />
+                                                        </div>
+                                                        <label class="col-form-label col-3 tw-mb-2 text-lg-right text-left">Price</label>
+                                                        <div class="col-9 tw-mb-2">
+                                                            <input class="form-control form-control-lg form-control-solid" type="text" name="name" placeholder="Name" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!--end::Header-->
                                     <!--begin::Body-->

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <base href="../../">
-      <meta charset="utf-8" />
-      <title>PriceCom | Admin</title>
-      <link href="assets/app.css" rel="stylesheet" type="text/css" />
+        <base href="../../">
+        <meta charset="utf-8" />
+        <title>PriceCom | Admin</title>
+        <link href="assets/app.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
       <?php include "../layout/app.php" ?>
@@ -62,7 +62,48 @@
                     <div class="card card-custom">
                         <!--begin::Body-->
                         <div class="card-body">
-                            <div class="tw-text-blue-500">admin database</div>
+                            <form class="form">
+                                <!--begin::Body-->
+                                <div class="col-lg-12">
+                                    <div class="tw-px-6 tw-py-3">
+                                        <table class="table table-checkable dataTable dtr-inline w-100 tw-font-medium" id="datatable">
+                                            <thead>
+                                                <tr class="tw-border-b-2 tw-b-gray-300">
+                                                    <th style="width: 10%">Admin ID</th>
+                                                    <th style="width: 20%">Name</th>
+                                                    <th style="width: 20%">Email</th>
+                                                    <th style="width: 20%">Phone Number</th>
+                                                    <th style="width: 15%">Status</th>
+                                                    <th style="width: 15%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
+                                                    <td>
+                                                        001
+                                                    </td>    
+                                                    <td>
+                                                        Admin Name
+                                                    </td>
+                                                    <td>
+                                                        email@email.com
+                                                    </td>
+                                                    <td>
+                                                        012-3456789
+                                                    </td>
+                                                    <td class="tw-text-center">
+                                                        <span class="tw-bg-yellow-300 tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">Super</span>
+                                                    </td>
+                                                    <td class="tw-text-center">
+                                                        <a href="Admin/admin/show.php" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </form>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -74,4 +115,17 @@
         <!--end::Content-->
       </div>
     </body>
+    <script>
+        $(document).ready( function () {
+            dTable=$('#datatable').DataTable({
+                "paging":true,
+                "bFilter": true,
+                "ordering": true,
+                "lengthChange": false
+            });
+        });
+        $('#admin_search').keyup(function() {
+            dTable.search($(this).val()).draw();
+        })
+    </script>
 </html>

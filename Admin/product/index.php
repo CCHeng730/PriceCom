@@ -23,7 +23,7 @@
                         <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">0 Total</span>
                         <form class="ml-5">
                             <div class="input-group input-group-sm input-group-solid" style="max-width: 175px">
-                                <input type="text" class="form-control datatable-input" id="admin_search" placeholder="Search..." />
+                                <input type="text" class="form-control datatable-input" id="product_search" placeholder="Search..." />
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <span class="svg-icon">
@@ -65,7 +65,44 @@
                     <div class="card card-custom">
                         <!--begin::Body-->
                         <div class="card-body">
-                            <div class="tw-text-blue-500">Product database</div>
+                            <form class="form">
+                                <!--begin::Body-->
+                                <div class="col-lg-12">
+                                    <div class="tw-px-6 tw-py-3">
+                                        <table class="table table-checkable dataTable dtr-inline w-100 tw-font-medium" id="datatable">
+                                            <thead>
+                                                <tr class="tw-border-b-2 tw-b-gray-300">
+                                                    <th style="width: 12%">Product ID</th>
+                                                    <th style="width: 33%">Name</th>
+                                                    <th style="width: 20%">Category ID</th>
+                                                    <th style="width: 20%">No.Store</th>
+                                                    <th style="width: 15%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
+                                                    <td>
+                                                        001
+                                                    </td>
+                                                    <td>
+                                                        Product name 01
+                                                    </td>
+                                                    <td>
+                                                        021
+                                                    </td>
+                                                    <td class="tw-text-center">
+                                                        <span class="tw-bg-yellow-300 tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">09</span>
+                                                    </td>
+                                                    <td class="tw-text-center">
+                                                        <a href="Admin/product/show.php" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </form>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -77,4 +114,17 @@
         <!--end::Content-->
       </div>
     </body>
+    <script>
+        $(document).ready( function () {
+            dTable=$('#datatable').DataTable({
+                "paging":true,
+                "bFilter": true,
+                "ordering": true,
+                "lengthChange": false
+            });
+        });
+        $('#product_search').keyup(function() {
+            dTable.search($(this).val()).draw();
+        })
+    </script>
 </html>
