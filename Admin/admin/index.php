@@ -2,10 +2,11 @@
 ob_start();
 include_once("../../connection.php");
 
-//check if logged in
-if(!isset($_SESSION['aid'])) {
+if(!isset($_SESSION['aid'])) { //check if logged in
     ?><script>window.location.href="../auth/login.php"</script><?php
 }
+
+$adminQuery = query("select * from admin where deleted_at = 0 ");
 
 ?>
 <!DOCTYPE html>
@@ -88,26 +89,24 @@ if(!isset($_SESSION['aid'])) {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+                                            while($admin=fetch($adminQuery)) {
+                                                ?>
                                                 <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
-                                                    <td>
-                                                        001
-                                                    </td>    
-                                                    <td>
-                                                        Admin Name
-                                                    </td>
-                                                    <td>
-                                                        email@email.com
-                                                    </td>
-                                                    <td>
-                                                        012-3456789
-                                                    </td>
+                                                    <td><?=$admin['id']?></td>
+                                                    <td><?=$admin['username']?></td>
+                                                    <td><?=$admin['email']?></td>
+                                                    <td><?=$admin['phone_no']?></td>
+                                                    <td class="tw-text-center"><span class="<?=($admin['super'] == 1)? 'tw-bg-yellow-300': 'tw-bg-green-300'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1"><?=($admin['super'] == 1)? 'Super': 'Admin'?></span></td>
                                                     <td class="tw-text-center">
-                                                        <span class="tw-bg-yellow-300 tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">Super</span>
-                                                    </td>
-                                                    <td class="tw-text-center">
-                                                        <a href="Admin/admin/show.php" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                        <a href="Admin/admin/show.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                        <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
                                                     </td>
                                                 </tr>
+                                            <?php
+                                                }
+                                            ?>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -131,7 +130,11 @@ if(!isset($_SESSION['aid'])) {
                 "paging":true,
                 "bFilter": true,
                 "ordering": true,
-                "lengthChange": false
+                "lengthChange": false,
+                "columnDefs": [
+                    { "searchable": false, "targets":5 },
+                    { "sortable": false, "targets":5 }
+                ]
             });
         });
         $('#admin_search').keyup(function() {
