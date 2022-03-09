@@ -86,8 +86,8 @@ $currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]'
                                                     <th style="width: 20%">Name</th>
                                                     <th style="width: 20%">Email</th>
                                                     <th style="width: 20%">Phone Number</th>
-                                                    <th style="width: 15%">Status</th>
-                                                    <th style="width: 15%"></th>
+                                                    <th style="width: 10%">Status</th>
+                                                    <th style="width: 20%"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -106,7 +106,7 @@ $currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]'
                                                             <?php
                                                             if($_SESSION['super'] == 1 ){
                                                             ?>
-                                                            <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                            <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: orange;" class="tw-text-white tw-mx-2 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
                                                                 <?php
                                                                     if($admin['id']!=$_SESSION['aid']){
                                                                 ?>

@@ -202,7 +202,6 @@ if(isset($_POST['submit'])){
                                                         <option value="1" <?= ($_POST['gender'] == 1) ?'selected': (($adminfetch['gender'] == 1)?"selected":"")?> >Female</option>
                                                     </select>
                                                     <span class="error text-danger"><?= (isset($gerror)) ? $gerror : "" ?></span>
-
                                                 </div>
                                             </div>
                                             <!--end::Group-->
