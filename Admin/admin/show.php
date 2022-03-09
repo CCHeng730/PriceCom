@@ -2,12 +2,13 @@
 ob_start();
 include_once("../../connection.php");
 
-if(!isset($_SESSION['aid'])) { //check if logged in
-    ?><script>window.location.href="../auth/login.php"</script><?php
-}
 $readid = $_GET['id'];
 $authid = $_GET['auth'];
 $checkid = md5($readid).sha1($readid);
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
 
 if($checkid != $authid){ //parameter not match with encrypted one
     ?><script>window.location.href="index.php"</script><?php
@@ -18,7 +19,8 @@ if(!isset($_GET['id'])){ //not getting parameter
 }
 
 $adminid = $_GET['id'];
-$adminfetch = fetch(query("select * from admin where id = '$adminid'"));
+$adminQuery = query("select * from admin where deleted_at is null and id='$readid'");
+$adminfetch = fetch($adminQuery);
 
 ?>
 
@@ -49,9 +51,15 @@ $adminfetch = fetch(query("select * from admin where id = '$adminid'"));
                         <a href="Admin/admin/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
+                        <?php
+                            if($_SESSION['super'] == 1){
+                        ?>
                         <a href="Admin/admin/edit.php?id=<?=$adminid?>&auth=<?=$authid?>" style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
                             Edit User
                         </a>
+                        <?php
+                            }
+                        ?>
                     </div>
                     <!--end::Toolbar-->
                 </div>
@@ -92,9 +100,8 @@ $adminfetch = fetch(query("select * from admin where id = '$adminid'"));
                                                 <div class="col-lg-9 col-xl-6">
                                                     <div class="image-input image-input-outline"
                                                         id="kt_user_add_avatar">
-                                                        <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
-                                                                style="width: 140px; height:140px;" 
-                                                                src="<?=($adminfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin".$adminfetch['image']?>"/>
+                                                        <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
+                                                                style="width: 140px; height:140px;" src="<?=(isset($adminfetch['image']))?'./Admin/admin/'.$adminfetch['image']:"https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S"?>" alt="">
                                                     </div>
                                                 </div>
                                             </div>

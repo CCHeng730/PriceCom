@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 
         //set auth session token
         $_SESSION['aid'] = $adminFetch['id'];
-
+        $_SESSION['super'] = $adminFetch['super'];
         //redirect to homepage
         ?>
         <script>window.location.href = "../admin/index.php"</script><?php

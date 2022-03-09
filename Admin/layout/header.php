@@ -7,20 +7,23 @@
         <!--end::Header Menu Wrapper-->
         <!--begin::Topbar-->
         <div class="topbar">
+            <?php
+            $Headadminfetch = fetch(query("select * from admin where id = '$_SESSION[aid]'"));
+            ?>
             <!--begin::User-->
             <div class="topbar-item">
                 <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
                         <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">PriceCom</span>
+                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"><?=$Headadminfetch['username']?></span>
                         <span class="symbol symbol-35 symbol-light-success">
-                            <span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                            <span class="symbol-label font-size-h5 font-weight-bold"><?=strtoupper($Headadminfetch['username'][0])?></span>
                         </span>
                     </div>
                 </div>
                 <div class="dropdown-menu"style="text-align:start; width:12rem;">
                     <div class="pr-5 pt-2 tw-w-full">
-                        <a href="#">
+                        <a href="Admin/admin/edit.php?id=<?=$_SESSION['aid']?>&auth=<?=md5($_SESSION['aid']).sha1($_SESSION['aid'])?>">
                             <i style="width: 35%" class="tw-text-center fas fa-user fa-lg"></i>
                             <span style="width:65%; color:black; font-size:14px; font-weight: normal;">Profile
                         </a>

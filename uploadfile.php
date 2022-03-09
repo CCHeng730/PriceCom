@@ -11,7 +11,7 @@ function uploadFile($photo)
     $img_name   = $photo['name'];
     $encode_imgName = rand(1000000,9999999);
 
-    $target_dir = "../picture/";
+    $target_dir = "picture/";
     $file_type = '.' . substr($img_name, strrpos($img_name, '.') + 1);
     $target_file = $target_dir . basename($photo['name']);
 
