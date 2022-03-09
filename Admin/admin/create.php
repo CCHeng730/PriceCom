@@ -50,11 +50,11 @@ if (isset($_POST['submit'])) {
         $hashpass = "$1" . md5(md5($email)) . sha1(sha1($password));
         $currentDate = date('Y-m-d H:i:s');
 
-        if (isset($_FILES['photo']['name'])) {
+        if ($_FILES['photo']['name'] != '') {
             $imageResponse = uploadFile($_FILES['photo']);
         }
 
-        if ($imageResponse != null) { //no upload file
+        if (isset($_FILES['photo']['name']) && $imageResponse != null) { //no upload file
             if ($imageResponse[1] != 0) { //success upload file
                 //insert record
                 query("insert into admin (username,password,phone_no,email,gender,image,created_at)
@@ -74,6 +74,7 @@ if (isset($_POST['submit'])) {
             //redirect back
             ?><script>window.location.href = "index.php"</script><?php
         }
+
 
     }
 
@@ -148,8 +149,9 @@ if (isset($_POST['submit'])) {
                                                                 <i class="fa fa-pen icon-sm text-muted"></i>
                                                                 <input type="file" name="photo" />
                                                             </label>
-                                                            <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
                                                         </div>
+                                                        <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
+
                                                     </div>
                                                 </div>
                                             </div>

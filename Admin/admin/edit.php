@@ -7,13 +7,13 @@ $readid = $_GET['id'];
 $authid = $_GET['auth'];
 $checkid = md5($readid).sha1($readid);
 
-if(!isset($_SESSION['aid']) && $_SESSION['super'] ==1) { //check if logged in and is SUPER ADMIN
+if(!isset($_SESSION['aid'])) { //check if logged in
     ?><script>window.location.href="../auth/login.php"</script><?php
 }elseif($_SESSION['aid'] == $readid){ //self profile
     $passwordEdit = 1;
 }
 
-if($checkid != $authid){ //parameter not match with encrypted one
+if($checkid != $authid || $_SESSION['super'] != '1' ){ //parameter not match with encrypted one and is SUPER ADMIN
     ?><script>window.location.href="index.php"</script><?php
 }
 $readid = $_GET['id'];
@@ -62,9 +62,10 @@ if(isset($_POST['submit'])){
     if (!isset($uerror) && !isset($eerror) && !isset($confirmError) && !isset($gerror)) {
         $currentDate = date('Y-m-d H:i:s');
 
-        if (isset($_FILES['photo']['name'])) {
+        if ($_FILES['photo']['name'] != '') {
             $imageResponse = uploadFile($_FILES['photo']);
         }
+
 
         if ($imageResponse != null) { //upload file
             if ($imageResponse[1] != 0) { //success upload file
@@ -198,8 +199,8 @@ if(isset($_POST['submit'])){
                                                 <div class="col-lg-9 col-xl-6">
                                                     <select name="gender" class="form-control form-control-lg form-control-solid">
                                                         <option value="null" selected disabled> -- Choose Your Gender -- </option>
-                                                        <option value="0" <?= ($_POST['gender'] == 0) ?'selected': (($adminfetch['gender'] == 0)?"selected":"")?> >Male</option>
-                                                        <option value="1" <?= ($_POST['gender'] == 1) ?'selected': (($adminfetch['gender'] == 1)?"selected":"")?> >Female</option>
+                                                        <option value="0" <?= ($_POST['gender'] == "0") ?'selected': (($adminfetch['gender'] == "0")?"selected":"")?> >Male</option>
+                                                        <option value="1" <?= ($_POST['gender'] == "1") ?'selected': (($adminfetch['gender'] == "1")?"selected":"")?> >Female</option>
                                                     </select>
                                                     <span class="error text-danger"><?= (isset($gerror)) ? $gerror : "" ?></span>
 

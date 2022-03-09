@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $hashpass = "$1" . md5(md5($email)) . sha1(sha1($password));
-    $adminQuery = query("select * from admin where email = '$email' and password = '$hashpass'");
+    $adminQuery = query("select * from admin where email = '$email' and password = '$hashpass' and deleted_at is null");
 
     if (row($adminQuery) == 1) { //record match database
         $adminFetch = fetch($adminQuery);
