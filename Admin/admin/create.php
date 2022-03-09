@@ -24,9 +24,6 @@
                         <div style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
                             Create Admin
                         </div>
-                        <a href="Admin/admin/edit.php" style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
-                            Edit Admin
-                        </a>
                     </div>
                     <!--end::Toolbar-->
                 </div>
