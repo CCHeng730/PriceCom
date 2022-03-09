@@ -7,6 +7,7 @@ if(!isset($_SESSION['aid'])) { //check if logged in
 }
 
 $adminQuery = query("select * from admin where deleted_at is null ");
+$currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]' "));
 
 ?>
 <!DOCTYPE html>
@@ -100,11 +101,22 @@ $adminQuery = query("select * from admin where deleted_at is null ");
                                                     <td><?=$admin['phone_no']?></td>
                                                     <td class="tw-text-center"><span class="<?=($admin['super'] == 1)? 'tw-bg-yellow-300': 'tw-bg-green-300'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1"><?=($admin['super'] == 1)? 'Super': 'Admin'?></span></td>
                                                     <td class="row text-center">
+
                                                         <div class="btn-group">
                                                             <a href="Admin/admin/show.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                            <?php
+                                                            if($_SESSION['super'] == 1 ){
+                                                            ?>
                                                             <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                                <?php
+                                                                    if($admin['id']!=$_SESSION['aid']){
+                                                                ?>
+                                                            <a href="Admin/admin/delete.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: darkred;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                                                            <?php
+                                                                    }
+                                                            }
+                                                            ?>
                                                         </div>
-
                                                     </td>
                                                 </tr>
                                             <?php

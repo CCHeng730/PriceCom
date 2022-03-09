@@ -7,7 +7,7 @@ $readid = $_GET['id'];
 $authid = $_GET['auth'];
 $checkid = md5($readid).sha1($readid);
 
-if(!isset($_SESSION['aid'])) { //check if logged in
+if(!isset($_SESSION['aid']) && $_SESSION['super'] ==1) { //check if logged in and is SUPER ADMIN
     ?><script>window.location.href="../auth/login.php"</script><?php
 }elseif($_SESSION['aid'] == $readid){ //self profile
     $passwordEdit = 1;

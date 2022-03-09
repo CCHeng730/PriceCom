@@ -52,9 +52,15 @@ $adminfetch = fetch($adminQuery);
                         <a href="Admin/admin/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
+                        <?php
+                            if($_SESSION['super'] == 1){
+                        ?>
                         <a href="Admin/admin/edit.php?id=<?=$adminid?>&auth=<?=$authid?>" style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
                             Edit User
                         </a>
+                        <?php
+                            }
+                        ?>
                     </div>
                     <!--end::Toolbar-->
                 </div>
