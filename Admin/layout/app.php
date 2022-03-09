@@ -40,4 +40,19 @@
     <script type="text/javascript" src="assets/admin/js/pages/crud/datatables/basic/scrollable.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        function readURL(input, id) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imageResultIcon' + id).hide();
+                    $('#imageDefaultImg').hide();
+                    $('#imageResult' + id)
+                        .attr('src', e.target.result);
+                    $('#imageResult' + id).show();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </html>

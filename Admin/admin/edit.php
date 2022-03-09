@@ -168,15 +168,15 @@ if(isset($_POST['submit'])){
                                                 <div class="cold-lg-9 col-xl-6">
                                                     <div>
                                                         <div class="image-input image-input-outline"
-                                                            id="kt_user_add_avatar">   
-                                                            <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
+                                                            id="kt_user_add_avatar">
+                                                            <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
                                                                     style="width: 140px; height:140px;" src="<?=(isset($adminfetch['image']))?'./Admin/admin/'.$adminfetch['image']:"https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" ?>" alt="">
                                                             <img id="imageResult1" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" src=""
                                                                 style="display:none; width: 140px; height:140px;"
-                                                                value="{{ old('image') }}"> 
+                                                                value="{{ old('image') }}">
                                                             <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                                                 <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                <input type="file" name="photo" />
+                                                                <input type="file" name="photo" onchange="readURL(this,1);" accept=".png, .jpg, .jpeg"  />
                                                             </label>
                                                             <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
 
@@ -272,4 +272,5 @@ if(isset($_POST['submit'])){
             <!--end::Content-->
         </div>
     </body>
+
 </html>
