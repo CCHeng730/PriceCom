@@ -1,13 +1,17 @@
 <?php
 ob_start();
 include_once("../../connection.php");
+include ("../../uploadfile.php");
 
-if(!isset($_SESSION['aid'])) { //check if logged in
-    ?><script>window.location.href="../auth/login.php"</script><?php
-}
 $readid = $_GET['id'];
 $authid = $_GET['auth'];
 $checkid = md5($readid).sha1($readid);
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}elseif($_SESSION['aid'] == $readid){ //self profile
+    $passwordEdit = 1;
+}
 
 if($checkid != $authid){ //parameter not match with encrypted one
     ?><script>window.location.href="index.php"</script><?php
@@ -112,9 +116,14 @@ if(isset($_POST['submit'])){
                         <a href="Admin/admin/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
-<!--                        <div style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">-->
-<!--                            Save Change-->
-<!--                        </div>-->
+                        <?php
+                            if(isset($passwordEdit)){
+                        ?>
+                        <a href="Admin/auth/changePassword.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
+                            Change Password</a>
+                        <?php
+                            }
+                        ?>
                     </div>
                     <!--end::Toolbar-->
                 </div>
@@ -141,7 +150,7 @@ if(isset($_POST['submit'])){
                                     </div>
                                     <!--end::Header-->
                                     <!--begin::Form-->
-                                    <form method="post">
+                                    <form method="post"  enctype="multipart/form-data">
                                         <!--begin::Body-->
                                         <div class="card-body">
                                             <div class="row">
@@ -163,7 +172,7 @@ if(isset($_POST['submit'])){
                                                                 value="{{ old('image') }}"> 
                                                             <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                                                 <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                <input type="file" name="image" value="<?=$adminfetch['image']?>" onchange="readURL(this,1);" accept=".png, .jpg, .jpeg" />
+                                                                <input type="file" name="photo" />
                                                             </label>
                                                             <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
 

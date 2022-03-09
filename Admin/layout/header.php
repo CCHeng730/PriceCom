@@ -23,7 +23,7 @@
                 </div>
                 <div class="dropdown-menu"style="text-align:start; width:12rem;">
                     <div class="pr-5 pt-2 tw-w-full">
-                        <a href="#">
+                        <a href="Admin/admin/edit.php?id=<?=$_SESSION['aid']?>&auth=<?=md5($_SESSION['aid']).sha1($_SESSION['aid'])?>">
                             <i style="width: 35%" class="tw-text-center fas fa-user fa-lg"></i>
                             <span style="width:65%; color:black; font-size:14px; font-weight: normal;">Profile
                         </a>
