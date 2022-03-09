@@ -10,7 +10,7 @@ CREATE TABLE `User` (
   `status` int COMMENT '0 inactive 1 active' NOT NULL,
   `image` varchar(255),
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Admin` (
@@ -23,7 +23,7 @@ CREATE TABLE `Admin` (
   `super` int DEFAULT 0 COMMENT '0 normal 1 super' NOT NULL,
   `image` varchar(255),
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Product` (
@@ -33,7 +33,7 @@ CREATE TABLE `Product` (
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `ProductStore` (
@@ -42,7 +42,7 @@ CREATE TABLE `ProductStore` (
   `name` text NOT NULL,
   `price` double NOT NULL,
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Category` (
@@ -51,7 +51,7 @@ CREATE TABLE `Category` (
   `status` int COMMENT '0 inactive 1 active' NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL,
 );
 
 CREATE TABLE `Purchase_history` (

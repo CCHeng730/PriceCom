@@ -1,3 +1,15 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+
+$productQuery = query("select * from product where deleted_at IS NULL");
+$total_product = mysqli_num_rows($productQuery);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +32,7 @@
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
                     <!--end::Separator-->
                     <div class="d-flex align-items-center" id="kt_subheader_search">
-                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">0 Total</span>
+                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total"><?php echo $total_product?> Total</span>
                         <form class="ml-5">
                             <div class="input-group input-group-sm input-group-solid" style="max-width: 175px">
                                 <input type="text" class="form-control datatable-input" id="product_search" placeholder="Search..." />
@@ -72,28 +84,36 @@
                                                     <th style="width: 12%">Product ID</th>
                                                     <th style="width: 33%">Name</th>
                                                     <th style="width: 20%">Category ID</th>
-                                                    <th style="width: 20%">No.Store</th>
-                                                    <th style="width: 15%"></th>
+                                                    <th style="width: 13%">No.Store</th>
+                                                    <th style="width: 22%"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+                                                while($product=fetch($productQuery)) {
+                                            ?>
                                                 <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
-                                                    <td>
-                                                        001
-                                                    </td>
-                                                    <td>
-                                                        Product name 01
-                                                    </td>
-                                                    <td>
-                                                        021
+                                                    <td><?=$product['id']?></td>
+                                                    <td><?=$product['name']?></td>
+                                                    <td><?=$product['category_id']?></td>
+                                                    <td class="tw-text-center">
+                                                        <span class="tw-bg-yellow-300 tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">
+                                                            <?php 
+                                                                $product_id = $product['id'];
+                                                                $product_storeQuery = query("select * from productstore where product_id = $product_id");
+                                                                $total_product_store = mysqli_num_rows($product_storeQuery);
+                                                                echo $total_product_store;
+                                                            ?>
+                                                        </span>
                                                     </td>
                                                     <td class="tw-text-center">
-                                                        <span class="tw-bg-yellow-300 tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">09</span>
-                                                    </td>
-                                                    <td class="tw-text-center">
-                                                        <a href="Admin/product/show.php" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                        <a href="Admin/product/show.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                        <a href="Admin/product/edit.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
                                                     </td>
                                                 </tr>
+                                            <?php
+                                                }
+                                            ?>
                                             </tbody>
                                         </table>
                                     </div>

@@ -1,3 +1,26 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$readid = $_GET['id'];
+$authid = $_GET['auth'];
+$checkid = md5($readid).sha1($readid);
+
+if($checkid != $authid){ //parameter not match with encrypted one
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+if(!isset($_GET['id'])){ //not getting parameter
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+$userid = $_GET['id'];
+$userfetch = fetch(query("select * from user where id = '$userid'"));
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +39,7 @@
                         <!--begin::Page Title-->
                         <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">User</h5>
                         <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">NAME</h5>
+                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"><?=$userfetch['username']?></h5>
                         <!--end::Page Title-->
                     </div>
                     <!--end::Info-->
@@ -67,20 +90,21 @@
                                                     <div class="image-input image-input-outline"
                                                         id="kt_user_add_avatar">
                                                         <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
-                                                                style="width: 140px; height:140px;" src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" alt="">
+                                                                style="width: 140px; height:140px;" alt=""
+                                                                src="<?=($userfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin".$userfetch['image']?>"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-lg-3 col-form-label text-right">Name</label>
                                                 <div class="col-lg-9 col-xl-6">
-                                                    <input class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
+                                                    <input value="<?=$userfetch['username']?>" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-lg-3 col-form-label text-right">Gender</label>
                                                 <div class="col-lg-9 col-xl-6">
-                                                    <input class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
+                                                    <input value="<?=(($userfetch['gender'] ==1))?'Male':'Female'?>" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -98,7 +122,7 @@
                                                                 <i class="la la-phone"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Phone" readonly />
+                                                        <input value="<?=$userfetch['phone_no']?>" type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Phone" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +135,7 @@
                                                                 <i class="la la-at"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Email" readonly />
+                                                        <input value="<?=$userfetch['email']?>" type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Email" readonly />
                                                     </div>
                                                     <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                                 </div>

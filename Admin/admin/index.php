@@ -6,8 +6,8 @@ if(!isset($_SESSION['aid'])) { //check if logged in
     ?><script>window.location.href="../auth/login.php"</script><?php
 }
 
-$adminQuery = query("select * from admin where deleted_at = 0 ");
-
+$adminQuery = query("select * from admin where deleted_at IS NULL");
+$total_admin = mysqli_num_rows($adminQuery);
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@ $adminQuery = query("select * from admin where deleted_at = 0 ");
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
                     <!--end::Separator-->
                     <div class="d-flex align-items-center" id="kt_subheader_search">
-                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">0 Total</span>
+                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total"><?php echo $total_admin?> Total</span>
                         <form class="ml-5">
                             <div class="input-group input-group-sm input-group-solid" style="max-width: 175px">
                                 <input type="text" class="form-control datatable-input" id="admin_search" placeholder="Search..." />
@@ -90,14 +90,18 @@ $adminQuery = query("select * from admin where deleted_at = 0 ");
                                             </thead>
                                             <tbody>
                                             <?php
-                                            while($admin=fetch($adminQuery)) {
-                                                ?>
+                                                while($admin=fetch($adminQuery)) {
+                                            ?>
                                                 <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
                                                     <td><?=$admin['id']?></td>
                                                     <td><?=$admin['username']?></td>
                                                     <td><?=$admin['email']?></td>
                                                     <td><?=$admin['phone_no']?></td>
-                                                    <td class="tw-text-center"><span class="<?=($admin['super'] == 1)? 'tw-bg-yellow-300': 'tw-bg-green-300'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1"><?=($admin['super'] == 1)? 'Super': 'Admin'?></span></td>
+                                                    <td class="tw-text-center">
+                                                        <span class="<?=($admin['super'] == 1)? 'tw-bg-yellow-300': 'tw-bg-green-300'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">
+                                                            <?=($admin['super'] == 1)? 'Super': 'Admin'?>
+                                                        </span>
+                                                    </td>
                                                     <td class="tw-text-center">
                                                         <a href="Admin/admin/show.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
                                                         <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
@@ -106,7 +110,6 @@ $adminQuery = query("select * from admin where deleted_at = 0 ");
                                             <?php
                                                 }
                                             ?>
-
                                             </tbody>
                                         </table>
                                     </div>

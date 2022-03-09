@@ -1,3 +1,13 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$categoryid = $_GET['id'];
+$categoryfetch = fetch(query("select * from category where id = '$categoryid'"));
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +26,7 @@
                         <!--begin::Page Title-->
                         <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Category</h5>
                         <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">NAME</h5>
+                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"><?=$categoryfetch['name']?></h5>
                         <!--end::Page Title-->
                     </div>
                     <!--end::Info-->
@@ -25,7 +35,7 @@
                         <a href="Admin/category/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
-                        <a href="Admin/category/edit.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
+                        <a href="Admin/category/edit.php?id=<?=$categoryid?>" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
                             Edit Category
                         </a>
                     </div>
@@ -65,7 +75,8 @@
                                                         <div class="col-9">
                                                             <div class="image-input image-input-outline" id="kt_user_add_avatar">
                                                                 <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
-                                                                    style="width: 140px; height:140px;" src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" alt="">
+                                                                    style="width: 140px; height:140px;" 
+                                                                    src="<?=($categoryfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin".$categoryfetch['image']?>"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -74,7 +85,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-3 text-lg-right text-left">Name</label>
                                                         <div class="col-9">
-                                                            <input class="form-control form-control-lg form-control-solid" type="text" style="background-color: #EFF6FF;" value="{{ $category->name }}" placeholder="Name..." readonly />
+                                                            <input class="form-control form-control-lg form-control-solid" type="text" style="background-color: #EFF6FF;" value="<?=$categoryfetch['name']?>" placeholder="Name..." readonly />
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->

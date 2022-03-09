@@ -107,183 +107,201 @@ if (isset($_POST['submit'])) {
                     <!--end::Toolbar-->
                 </div>
             </div>
-        </div>
-        <!--end::Subheader-->
-        <!--begin::Content-->
-        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-            <div class="d-flex flex-column-fluid">
-                <!--begin::Container-->
-                <div class="container">
-                    <!--begin::Card-->
-                    <div class="card card-custom">
-                        <!--begin::Card body-->
-                        <div class="card-body px-0">
-                            <div class="tab-content">
-                                <!--begin::Tab-->
-                                <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
-                                    <!--begin::Row-->
-                                    <div class="row">
-                                        <div class="col-xl-2"></div>
-                                        <div class="col-xl-7 my-2">
-                                            <div>
-                                                <!--begin::Row-->
-                                                <div class="row">
-                                                    <label class="col-3"></label>
-                                                    <div class="col-9">
-                                                        <h6 class="text-dark font-weight-bold mb-10">Create New Admin
-                                                            : </h6>
-                                                    </div>
-                                                </div>
-                                                <!--end::Row-->
-                                                <!--begin::Group-->
-                                                <form method="post" enctype="multipart/form-data">
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Avatar</label>
+            <!--end::Subheader-->
+            <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <div class="d-flex flex-column-fluid">
+                    <!--begin::Container-->
+                    <div class="container">
+                        <!--begin::Card-->
+                        <div class="card card-custom">
+                            <!--begin::Card body-->
+                            <div class="card-body px-0">
+                                <div class="tab-content">
+                                    <!--begin::Tab-->
+                                    <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <div class="col-xl-2"></div>
+                                            <div class="col-xl-7 my-2">
+                                                <div>
+                                                    <!--begin::Row-->
+                                                    <div class="row">
+                                                        <label class="col-3"></label>
                                                         <div class="col-9">
-                                                            <div>
-                                                                <div class="image-input image-input-outline"
-                                                                    id="kt_user_add_avatar">
-                                                                    <img id="imageDefaultImg"
-                                                                        class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
-                                                                        style="width: 140px; height:140px;"
-                                                                        src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S"
-                                                                        alt="">
-                                                                    <img id="imageResult1"
-                                                                        class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
-                                                                        src=""
-                                                                        style="display:none; width: 140px; height:140px;"
-                                                                        value="{{ old('image') }}">
-                                                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                                        data-action="change" data-toggle="tooltip"
-                                                                        title="" data-original-title="Change avatar">
-                                                                        <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                        <input type="file" name="photo"
-                                                                            onchange="readURL(this,1);"
-                                                                            accept=".png, .jpg, .jpeg"/>
-                                                                    </label>
-                                                                    <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
+                                                            <h6 class="text-dark font-weight-bold mb-10">Create New Admin
+                                                                : </h6>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Row-->
+                                                    <!--begin::Group-->
+                                                    <form method="post" enctype="multipart/form-data">
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Avatar</label>
+                                                            <div class="col-9">
+                                                                <div>
+                                                                    <div class="image-input image-input-outline"
+                                                                        id="kt_user_add_avatar">
+                                                                        <img id="imageDefaultImg"
+                                                                            class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
+                                                                            style="width: 140px; height:140px;"
+                                                                            src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S"
+                                                                            alt="">
+                                                                        <img id="imageResult1"
+                                                                            class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
+                                                                            src=""
+                                                                            style="display:none; width: 140px; height:140px;"
+                                                                            value="{{ old('image') }}">
+                                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                                            data-action="change" data-toggle="tooltip"
+                                                                            title="" data-original-title="Change avatar">
+                                                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                                                            <input type="file" name="photo"
+                                                                                onchange="readURL(this,1);"
+                                                                                accept=".png, .jpg, .jpeg"/>
+                                                                        </label>
+                                                                        <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Name</label>
+                                                            <div class="col-9">
+                                                                <input class="form-control form-control-lg form-control-solid"
+                                                                    type="text" name="username" placeholder="Name...."/>
+                                                                <span class="error text-danger"><?= (isset($uerror)) ? $uerror : "" ?></span>
+
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Email
+                                                                Address</label>
+                                                            <div class="col-9">
+                                                                <div class="input-group input-group-lg input-group-solid">
+                                                                    <div class="input-group-prepend">
+                                                                            <span class="input-group-text">
+                                                                                <i class="la la-at"></i>
+                                                                            </span>
+                                                                    </div>
+                                                                    <input type="email"
+                                                                        class="form-control form-control-lg form-control-solid"
+                                                                        name="email" placeholder="Email...."/>
+                                                                    <span class="error text-danger"><?= (isset($eerror)) ? $eerror : "" ?></span>
+
+                                                                </div>
+                                                                <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Gender</label>
+                                                            <div class="col-9">
+                                                                <select name="gender"
+                                                                        class="form-control form-control-lg form-control-solid">
+                                                                    <option value="null" selected disabled> -- Choose Your Gender --</option>
+                                                                    <option value="0">Male</option>
+                                                                    <option value="1">Female</option>
+                                                                </select>
+                                                                <span class="error text-danger"><?= (isset($gerror)) ? $eerror : "" ?></span>
+
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Contact
+                                                                Phone</label>
+                                                            <div class="col-9">
+                                                                <div class="input-group input-group-lg input-group-solid">
+                                                                    <div class="input-group-prepend">
+                                                                            <span class="input-group-text">
+                                                                                <i class="la la-phone"></i>
+                                                                            </span>
+                                                                    </div>
+                                                                    <input type="number"
+                                                                        class="form-control form-control-lg form-control-solid"
+                                                                        name="phone_no" placeholder="Phone...."/>
+                                                                    <span class="error text-danger"><?= (isset($perror)) ? $perror : "" ?></span>
 
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Name</label>
-                                                        <div class="col-9">
-                                                            <input class="form-control form-control-lg form-control-solid"
-                                                                type="text" name="username" placeholder="Name...."/>
-                                                            <span class="error text-danger"><?= (isset($uerror)) ? $uerror : "" ?></span>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Email
-                                                            Address</label>
-                                                        <div class="col-9">
-                                                            <div class="input-group input-group-lg input-group-solid">
-                                                                <div class="input-group-prepend">
-                                                                        <span class="input-group-text">
-                                                                            <i class="la la-at"></i>
-                                                                        </span>
-                                                                </div>
-                                                                <input type="email"
-                                                                    class="form-control form-control-lg form-control-solid"
-                                                                    name="email" placeholder="Email...."/>
-                                                                <span class="error text-danger"><?= (isset($eerror)) ? $eerror : "" ?></span>
-
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Password</label>
+                                                            <div class="col-9">
+                                                                <input class="form-control form-control-lg form-control-solid"
+                                                                    type="password" name="password"
+                                                                    placeholder="Password...."/>
                                                             </div>
-                                                            <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                                         </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Gender</label>
-                                                        <div class="col-9">
-                                                            <select name="gender"
-                                                                    class="form-control form-control-lg form-control-solid">
-                                                                <option value="null"> -- Choose Your Gender --</option>
-                                                                <option value="0">Male</option>
-                                                                <option value="1">Female</option>
-                                                            </select>
-                                                            <span class="error text-danger"><?= (isset($gerror)) ? $eerror : "" ?></span>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Contact
-                                                            Phone</label>
-                                                        <div class="col-9">
-                                                            <div class="input-group input-group-lg input-group-solid">
-                                                                <div class="input-group-prepend">
-                                                                        <span class="input-group-text">
-                                                                            <i class="la la-phone"></i>
-                                                                        </span>
-                                                                </div>
-                                                                <input type="number"
-                                                                    class="form-control form-control-lg form-control-solid"
-                                                                    name="phone_no" placeholder="Phone...."/>
-                                                                <span class="error text-danger"><?= (isset($perror)) ? $perror : "" ?></span>
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-3 text-lg-right text-left">Confirm
+                                                                Password</label>
+                                                            <div class="col-9">
+                                                                <input class="form-control form-control-lg form-control-solid"
+                                                                    type="password" name="confirm_password"
+                                                                    placeholder="Confirm Password...."/>
+                                                                <span class="error text-danger"><?= (isset($confirmError)) ? $confirmError : "" ?></span>
 
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Password</label>
-                                                        <div class="col-9">
-                                                            <input class="form-control form-control-lg form-control-solid"
-                                                                type="password" name="password"
-                                                                placeholder="Password...."/>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-3 text-lg-right text-left">Confirm
-                                                            Password</label>
-                                                        <div class="col-9">
-                                                            <input class="form-control form-control-lg form-control-solid"
-                                                                type="password" name="confirm_password"
-                                                                placeholder="Confirm Password...."/>
-                                                            <span class="error text-danger"><?= (isset($confirmError)) ? $confirmError : "" ?></span>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                    <!--begin::Group-->
-                                                    <div class="form-group row">
-                                                        <div class="col text-center">
+                                                        <!--end::Group-->
+                                                        <!--begin::Group-->
+                                                        <div class="row">
+                                                            <label class="col-3"></label>
                                                             <button type="submit"
-                                                                    class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4"
+                                                                    class="btn btn-primary font-weight-bold px-9 py-2 mx-4"
                                                                     name="submit">Create
                                                             </button>
                                                         </div>
-                                                    </div>
-                                                    <!--end::Group-->
-                                                </form>
+                                                        <!--end::Group-->
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!--end::Row-->
                                     </div>
-                                    <!--end::Row-->
+                                    <!--end::Tab-->
                                 </div>
-                                <!--end::Tab-->
                             </div>
+                            <!--begin::Card body-->
                         </div>
-                        <!--begin::Card body-->
+                        <!--end::Card-->
                     </div>
-                    <!--end::Card-->
+                    <!--end::Container-->
                 </div>
-                <!--end::Container-->
             </div>
+            <!--end::Content-->
         </div>
-        <!--end::Content-->
     </body>
+    <script>
+        function create_confirmation()
+        {
+            $("#create_form").submit();
+        }
+        function readURL(input, id) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imageResultIcon' + id).hide();
+                    $('#imageDefaultImg').hide();
+                    $('#imageResult' + id)
+                        .attr('src', e.target.result);
+                    $('#imageResult' + id).show();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </html>

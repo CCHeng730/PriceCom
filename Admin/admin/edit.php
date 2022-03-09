@@ -5,7 +5,20 @@ include_once("../../connection.php");
 if(!isset($_SESSION['aid'])) { //check if logged in
     ?><script>window.location.href="../auth/login.php"</script><?php
 }
+$readid = $_GET['id'];
+$authid = $_GET['auth'];
+$checkid = md5($readid).sha1($readid);
 
+if($checkid != $authid){ //parameter not match with encrypted one
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+if(!isset($_GET['id'])){ //not getting parameter
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+$adminid = $_GET['id'];
+$adminfetch = fetch(query("select * from admin where id = '$adminid'"));
 
 ?>
 <!DOCTYPE html>

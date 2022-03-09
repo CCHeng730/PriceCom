@@ -15,7 +15,9 @@
                     <!--begin::User-->
                     <div class="d-flex align-items-center">
                         <div class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                            <div class="symbol-label" style="background-image:url(https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S)"></div>
+                        <div class="symbol-label" style="background-image:url(
+                                <?=($adminfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin".$adminfetch['image']?>)"></div>
+                            </div>
                         </div>
                         <div>
                             <div class="font-weight-bolder font-size-h5 text-dark-75 "><?=(isset($adminfetch['username']))?$adminfetch['username']:''?></div>
@@ -41,7 +43,7 @@
                     <!--begin::Nav-->
                     <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
                         <div class="navi-item mb-2">
-                            <a href="Admin/admin/show.php" class="navi-link py-4">
+                            <a href="Admin/admin/show.php?id=<?=$adminfetch['id']?>&auth=<?=md5($adminfetch['id']).sha1($adminfetch['id'])?>" class="navi-link py-4 <?=(basename($_SERVER["SCRIPT_FILENAME"], '.php') == "show")? 'active': ''?>">
                                 <span class="navi-icon mr-2">
                                     <span class="svg-icon fas fa-user" style="font-size: 18px;">
                                     </span>
@@ -50,7 +52,7 @@
                             </a>
                         </div>
                         <div class="navi-item mb-2">
-                            <a href="Admin/admin/edit.php" class="navi-link py-4">
+                            <a href="Admin/admin/edit.php?id=<?=$adminfetch['id']?>&auth=<?=md5($adminfetch['id']).sha1($adminfetch['id'])?>" class="navi-link py-4 <?=(basename($_SERVER["SCRIPT_FILENAME"], '.php') == "edit")? 'active': ''?>">
                                 <span class="navi-icon mr-2">
                                     <span class="svg-icon fas fa-user-shield" style="font-size: 18px;">
                                     </span>

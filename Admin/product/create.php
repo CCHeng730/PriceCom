@@ -1,3 +1,61 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+include("../../uploadfile.php");
+
+if (!isset($_SESSION['aid'])) { //check if logged in
+    ?>
+    <script>window.location.href = "../auth/login.php"</script><?php
+}
+
+if (isset($_POST['submit'])) {
+    $pname = $_POST['pname'];
+    $description = $_POST['description'];
+    $category = $_POST['category'];
+
+    $descriptionUnique = row(query("select * from product where name = '$pname'"));
+
+    if ($pname == "") {
+        $nerror = "*This field is required";
+    }
+    if ($description == "") {
+        $derror = "*This field is required";
+    }elseif ($descriptionUnique > 0) {
+        $derror = "*This product name has already been taken!";
+    }
+    if ($category == null) {
+        $cerror = "*This field is required";
+    }
+    if ($_FILES['photo']['size'] == 0) {
+        $ierror = "*This field is required";
+    }
+
+    //if all clear
+    if (!isset($nerror) && !isset($derror) && !isset($cerror)) {
+        $currentDate = date('Y-m-d H:i:s');
+
+        if (isset($_FILES['photo']['name'])) {
+            $imageResponse = uploadFile($_FILES['photo']);
+        }else{
+            $ierror = "*This field is required";
+        }
+
+        if ($imageResponse != null) { //no upload file
+            if ($imageResponse[1] != 0) { //success upload file
+                //insert record
+                query("insert into product (name,description,category_id,image,created_at)
+                        values('$pname','$description','$category','$imageResponse[0]','$currentDate')");
+
+                //redirect back
+                ?><script>window.location.href = "index.php"</script><?php
+            } else {
+                //return error message
+                $ierror = $imageResponse[0];
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,9 +81,6 @@
                         <a href="Admin/product/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
-                        <div style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-font-medium hover:tw-bg-blue-600">
-                            Create
-                        </div>
                     </div>
                     <!--end::Toolbar-->
                 </div>
@@ -48,7 +103,7 @@
                                         <div class="row">
                                             <div class="col-xl-2"></div>
                                             <div class="col-xl-7 my-2">
-                                                <div>
+                                                <form method="post" enctype="multipart/form-data">
                                                     <!--begin::Row-->
                                                     <div class="row">
                                                         <label class="col-3"></label>
@@ -70,8 +125,9 @@
                                                                         value="{{ old('image') }}"> 
                                                                     <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                                                         <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                        <input type="file" name="image" onchange="readURL(this,1);" accept=".png, .jpg, .jpeg" />
+                                                                        <input type="file" name="photo" onchange="readURL(this,1);" accept=".png, .jpg, .jpeg" />
                                                                     </label>
+                                                                    <span class="error text-danger"><?= (isset($ierror)) ? $ierror : "" ?></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -81,7 +137,8 @@
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-3 text-lg-right text-left">Name</label>
                                                         <div class="col-9">
-                                                            <input class="form-control form-control-lg form-control-solid" type="text" name="name" placeholder="Name" />
+                                                            <input class="form-control form-control-lg form-control-solid" type="text" name="pname" placeholder="Name" />
+                                                            <span class="error text-danger"><?= (isset($nerror)) ? $nerror : "" ?></span>
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->
@@ -90,6 +147,7 @@
                                                         <label class="col-form-label col-3 text-lg-right text-left">Description</label>
                                                         <div class="col-9">
                                                             <textarea class="form-control form-control-lg form-control-solid" style="height: 10rem;" type="text" name="description" placeholder="Description...."></textarea>
+                                                                <span class="error text-danger"><?= (isset($derror)) ? $derror : "" ?></span>
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->
@@ -98,14 +156,30 @@
                                                         <label class="col-form-label col-3 text-lg-right text-left">Category</label>
                                                         <div class="col-9">
                                                             <select name="category" class="form-control form-control-lg form-control-solid">
-                                                                <option value="null"> -- Choose a category -- </option>
-                                                                <option value="0">category 01</option>
-                                                                <option value="1">category 01</option>
+                                                                <option value="NULL" selected disabled> -- Choose a category -- </option>
+                                                                <?php
+                                                                    $categoryQuery = query("select * from category where deleted_at IS NULL");
+                                                                    while($category=fetch($categoryQuery)) {
+                                                                ?>
+                                                                    <option value="<?=$category['id']?>"><?=$category['name']?></option>
+                                                                <?php
+                                                                    }
+                                                                ?>
                                                             </select>
+                                                            <span class="error text-danger"><?= (isset($cerror)) ? $cerror : "" ?></span>
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->
-                                                </div>
+                                                    <!--begin::Group-->
+                                                    <div class="row">
+                                                        <label class="col-3"></label>
+                                                        <button type="submit"
+                                                                class="btn btn-primary font-weight-bold px-9 py-2 mx-4"
+                                                                name="submit">Create
+                                                        </button>
+                                                    </div>
+                                                    <!--end::Group-->
+                                                </form>
                                             </div>
                                         </div>
                                         <!--end::Row-->
@@ -123,4 +197,23 @@
             <!--end::Content-->
         </div>
     </body>
+    <script>
+        function create_confirmation()
+        {
+            $("#create_form").submit();
+        }
+        function readURL(input, id) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imageResultIcon' + id).hide();
+                    $('#imageDefaultImg').hide();
+                    $('#imageResult' + id)
+                        .attr('src', e.target.result);
+                    $('#imageResult' + id).show();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </html>

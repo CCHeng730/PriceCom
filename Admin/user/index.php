@@ -1,3 +1,15 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+
+$userQuery = query("select * from user where deleted_at IS NULL");
+$total_user = mysqli_num_rows($userQuery);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +32,7 @@
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
                     <!--end::Separator-->
                     <div class="d-flex align-items-center" id="kt_subheader_search">
-                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">0 Total</span>
+                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total"><?php echo $total_user?> Total</span>
                         <form class="ml-5">
                             <div class="input-group input-group-sm input-group-solid" style="max-width: 175px">
                                 <input type="text" class="form-control datatable-input" id="user_search" placeholder="Search..." />
@@ -73,26 +85,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+                                                while($user=fetch($userQuery)) {
+                                            ?>
                                                 <tr class="tw-bg-white tw-border-gray-300 tw-border-b-2">
-                                                    <td>
-                                                        001
-                                                    </td>    
-                                                    <td>
-                                                        User Name
-                                                    </td>
-                                                    <td>
-                                                        email@email.com
-                                                    </td>
-                                                    <td>
-                                                        012-3456789
+                                                    <td><?=$user['id']?></td>
+                                                    <td><?=$user['username']?></td>
+                                                    <td><?=$user['email']?></td>
+                                                    <td><?=$user['phone_no']?></td>
+                                                    <td class="tw-text-center">
+                                                        <span class="<?=($user['status'] == 1)? 'tw-bg-red-300': 'tw-bg-green-400'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">
+                                                            <?=($user['status'] == 1)? 'Terminate': 'Active'?>
+                                                        </span>
                                                     </td>
                                                     <td class="tw-text-center">
-                                                        <span class="tw-bg-yellow-300 tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">Super</span>
-                                                    </td>
-                                                    <td class="tw-text-center">
-                                                        <a href="Admin/user/show.php" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                        <a href="Admin/user/show.php?id=<?=$user['id']?>&auth=<?=md5($user['id']).sha1($user['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
                                                     </td>
                                                 </tr>
+                                            <?php
+                                                }
+                                            ?>
                                             </tbody>
                                         </table>
                                     </div>
