@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>PriceCom | Admin</title>
-        <link href="assets/app.css" rel="stylesheet" type="text/css" />
+<!--        <link href="assets/app.css" rel="stylesheet" type="text/css" />-->
     </head>
     <body>
         <div class="flex-row-auto offcanvas-mobile w-250px w-xxl-350px" id="kt_profile_aside">
