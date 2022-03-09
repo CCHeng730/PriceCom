@@ -1,3 +1,28 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$readid = $_GET['id'];
+$authid = $_GET['auth'];
+$checkid = md5($readid).sha1($readid);
+
+if($checkid != $authid){ //parameter not match with encrypted one
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+if(!isset($_GET['id'])){ //not getting parameter
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+$adminid = $_GET['id'];
+$adminfetch = fetch(query("select * from admin where id = '$adminid'"));
+
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +41,7 @@
                         <!--begin::Page Title-->
                         <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Admin</h5>
                         <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">NAME</h5>
+                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"><?=$adminfetch['username']?></h5>
                         <!--end::Page Title-->
                     </div>
                     <!--end::Info-->
@@ -25,7 +50,7 @@
                         <a href="Admin/admin/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
-                        <a href="Admin/admin/edit.php" style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
+                        <a href="Admin/admin/edit.php?id=<?=$adminid?>&auth=<?=$authid?>" style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-text-white tw-font-medium hover:tw-text-white hover:tw-bg-blue-600">
                             Edit User
                         </a>
                     </div>
@@ -50,7 +75,7 @@
                                     <div class="card-header py-3">
                                         <div class="card-title align-items-start flex-column">
                                             <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
-                                            <span class="text-muted font-weight-bold font-size-sm mt-1">User: NAME personal informaiton</span>
+                                            <span class="text-muted font-weight-bold font-size-sm mt-1">User: <?=$adminfetch['username']?> personal informaiton</span>
                                         </div>
                                     </div>
                                     <!--end::Header-->
@@ -77,13 +102,13 @@
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-lg-3 col-form-label text-right">Name</label>
                                                 <div class="col-lg-9 col-xl-6">
-                                                    <input class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
+                                                    <input class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text" readonly value="<?=$adminfetch['username']?>" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-lg-3 col-form-label text-right">Gender</label>
                                                 <div class="col-lg-9 col-xl-6">
-                                                    <input class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
+                                                    <input class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text" readonly  value="<?=($adminfetch['gender']==1)?'Male':'Female'?>"/>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -101,7 +126,7 @@
                                                                 <i class="la la-phone"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Phone" readonly />
+                                                        <input type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Phone" readonly value="<?=$adminfetch['phone_no']?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +139,7 @@
                                                                 <i class="la la-at"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Email" readonly />
+                                                        <input type="text" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" placeholder="Email" readonly value="<?=$adminfetch['email']?>"/>
                                                     </div>
                                                     <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                                 </div>

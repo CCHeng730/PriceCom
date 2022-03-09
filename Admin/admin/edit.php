@@ -1,3 +1,13 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
     <head>

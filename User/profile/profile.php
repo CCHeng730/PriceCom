@@ -1,3 +1,13 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+//check if logged in
+if(!isset($_SESSION['uid'])) {
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,9 +68,9 @@
                                         <span style="width: 90%;">Purchase History</span>
                                     </div>
                                 </a>
-                                <a href="User/auth/login.php" class="tw-no-underline">
+                                <a href="User/auth/logout.php" class="tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-rounded-lg tw-uppercase hover:tw-bg-gray-500 tw-text-gray-400 hover:tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fas fa-sign-out-alt"></i> 
+                                        <i style="width: 10%;" class="fas fa-sign-out-alt"></i>
                                         <span style="width: 90%;">LogOut</span>
                                     </div>
                                 </a>

@@ -18,10 +18,10 @@
                             <div class="symbol-label" style="background-image:url(https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S)"></div>
                         </div>
                         <div>
-                            <div class="font-weight-bolder font-size-h5 text-dark-75">NAME</div>
-                            <div class="text-muted">Gender</div>
+                            <div class="font-weight-bolder font-size-h5 text-dark-75 "><?=(isset($adminfetch['username']))?$adminfetch['username']:''?></div>
+                            <div class="text-muted"><?=(($adminfetch['gender'] ==1))?'Male':'Female'?></div>
                             <div class="mt-2">
-                                <div class="btn-sm btn-primary font-weight-bold mr-2 py-2 px-3 px-xxl-5 my-1">super admin</div>
+                                <div class="btn-sm <?=($adminfetch['super'] == 1)? 'btn-warning': 'btn-success'?> font-weight-bold mr-2 py-2 px-3 px-xxl-5 my-1 "><?=(($adminfetch['super'] ==1))?'Super Admin':'Admin'?></div>
                             </div>
                         </div>
                     </div>
@@ -30,11 +30,11 @@
                     <div class="py-9">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="font-weight-bold mr-2">Email:</span>
-                            <div class="text-muted">EMAIL ADDRESS</div>
+                            <div class="text-muted"><?=(isset($adminfetch['email']))?$adminfetch['email']:''?></div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="font-weight-bold mr-2">Phone:</span>
-                            <span class="text-muted">012-3456789</span>
+                            <span class="text-muted"><?=(isset($adminfetch['phone_no']))?$adminfetch['phone_no']:''?></span>
                         </div>
                     </div>
                     <!--end::Contact-->

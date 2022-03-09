@@ -26,7 +26,7 @@
                         </a>
                     </div>
                     <div class="pr-5 pt-2 tw-w-full">
-                        <a href="Admin/auth/login.php" style="cursor: pointer;">
+                        <a href="Admin/auth/logout.php" style="cursor: pointer;">
                             <i style="width: 35%" class="tw-text-center fas fa-sign-out-alt fa-lg"></i>
                             <span style="width:65%; color:black; font-size:14px; font-weight: normal;">Logout
                         </a>
