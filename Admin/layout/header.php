@@ -7,14 +7,17 @@
         <!--end::Header Menu Wrapper-->
         <!--begin::Topbar-->
         <div class="topbar">
+            <?php
+            $Headadminfetch = fetch(query("select * from admin where id = '$_SESSION[aid]'"));
+            ?>
             <!--begin::User-->
             <div class="topbar-item">
                 <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
                         <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">PriceCom</span>
+                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"><?=$Headadminfetch['username']?></span>
                         <span class="symbol symbol-35 symbol-light-success">
-                            <span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                            <span class="symbol-label font-size-h5 font-weight-bold"><?=strtoupper($Headadminfetch['username'][0])?></span>
                         </span>
                     </div>
                 </div>

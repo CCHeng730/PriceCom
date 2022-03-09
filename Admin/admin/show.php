@@ -18,7 +18,8 @@ if(!isset($_GET['id'])){ //not getting parameter
 }
 
 $adminid = $_GET['id'];
-$adminfetch = fetch(query("select * from admin where id = '$adminid'"));
+$adminQuery = query("select * from admin where deleted_at is null and id='$readid'");
+$adminfetch = fetch($adminQuery);
 
 
 ?>
@@ -58,7 +59,7 @@ $adminfetch = fetch(query("select * from admin where id = '$adminid'"));
                 </div>
             </div>
             <!--end::Subheader-->
-            
+
             <!--begin::Content-->
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <div class="d-flex flex-column-fluid">
@@ -94,8 +95,8 @@ $adminfetch = fetch(query("select * from admin where id = '$adminid'"));
                                                 <div class="col-lg-9 col-xl-6">
                                                     <div class="image-input image-input-outline"
                                                         id="kt_user_add_avatar">
-                                                        <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
-                                                                style="width: 140px; height:140px;" src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" alt="">
+                                                        <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300"
+                                                                style="width: 140px; height:140px;" src="<?=(isset($adminfetch['image']))?'./Admin/admin/'.$adminfetch['image']:"https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S"?>" alt="">
                                                     </div>
                                                 </div>
                                             </div>

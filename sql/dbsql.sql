@@ -10,7 +10,7 @@ CREATE TABLE `User` (
   `status` int COMMENT '0 inactive 1 active' NOT NULL,
   `image` varchar(255),
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Admin` (
@@ -23,7 +23,7 @@ CREATE TABLE `Admin` (
   `super` int DEFAULT 0 COMMENT '0 normal 1 super' NOT NULL,
   `image` varchar(255),
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Product` (
@@ -33,7 +33,7 @@ CREATE TABLE `Product` (
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `ProductStore` (
@@ -42,7 +42,7 @@ CREATE TABLE `ProductStore` (
   `name` text NOT NULL,
   `price` double NOT NULL,
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Category` (
@@ -51,7 +51,7 @@ CREATE TABLE `Category` (
   `status` int COMMENT '0 inactive 1 active' NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` datetime,
-  `deleted_at` datetime NULL DEFAULT 0
+  `deleted_at` datetime NULL
 );
 
 CREATE TABLE `Purchase_history` (
@@ -61,7 +61,7 @@ CREATE TABLE `Purchase_history` (
   `created_at` datetime
 );
 
-INSERT INTO `admin` (`id`, `username`, `password`, `phone_no`, `email`, `gender`, `super`, `image`, `created_at`, `deleted_at`) VALUES (NULL, 'admin', '$1e9b9929c3f11344c874cf40c24e94c19353e8061f2befecb6818ba0c034c632fb0bcae1b', '012345876', 'admin@admin.com', '1', '1', NULL, '2022-03-07 15:54:15.000000', '0');
-INSERT INTO `user` (`id`, `username`, `password`, `phone_no`, `email`, `gender`, `status`, `image`, `created_at`, `deleted_at`) VALUES (NULL, 'root', '$14b8662d7e1074290ef56bac4e57adac2353e8061f2befecb6818ba0c034c632fb0bcae1b', '019825614', 'root@root.com', '1', '1', NULL, '2022-03-07 16:04:37.000000', '0');
+INSERT INTO `admin` (`id`, `username`, `password`, `phone_no`, `email`, `gender`, `super`, `image`, `created_at`) VALUES (NULL, 'admin', '$1e9b9929c3f11344c874cf40c24e94c19353e8061f2befecb6818ba0c034c632fb0bcae1b', '012345876', 'admin@admin.com', '1', '1', NULL, '2022-03-07 15:54:15.000000');
+INSERT INTO `user` (`id`, `username`, `password`, `phone_no`, `email`, `gender`, `status`, `image`, `created_at`) VALUES (NULL, 'root', '$14b8662d7e1074290ef56bac4e57adac2353e8061f2befecb6818ba0c034c632fb0bcae1b', '019825614', 'root@root.com', '1', '1', NULL, '2022-03-07 16:04:37.000000');
 
 
