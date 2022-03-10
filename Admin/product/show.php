@@ -8,6 +8,7 @@ if(!isset($_SESSION['aid'])) { //check if logged in
 $productid = $_GET['id'];
 $productfetch = fetch(query("select * from product where id = '$productid'"));
 $productstorefetch = query("select * from productstore where product_id = '$productid'");
+$store_fetchall = fetchall(query("select * from productstore where product_id = '$productid'"));
 $total_productstore = mysqli_num_rows($productstorefetch);
 
 // Create Store
@@ -38,27 +39,31 @@ if (isset($_POST['submit'])) {
     }
 }
 // Edit Store
-if(isset($_POST['editsubmit[]'])){
-    $edit_sname = $_POST['edit_sname'];
-    $edit_price = $_POST['edit_price'];
-    $edit_id = $_POST['edit_id'];
-
-    $EditStoreNameUnique = row(query("select * from productstore where name = '$edit_sname' and id != '$edit_id'"));
-    if ($edit_sname == "") {
-        $es_error = "*This field is required";
-    }elseif ($EditStoreNameUnique > 0) {
-        $es_error = "*This store name has already been taken!";
-    }
-    if ($edit_price == "") {
-        $ep_error = "*This field is required";
-    }
-    //if all clear
-    if (!isset($es_error) && !isset($ep_error)) {
-        //update record without image
-        query("update productstore set name='$edit_sname', price='$edit_price' where id='$edit_id'");
-
-        //redirect back
-        ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
+foreach($store_fetchall as $p_store)
+{
+    $storeid = (string)$p_store['id'];
+    var_dump($storeid);
+    die();
+    if(isset($_POST['editsubmit['.$storeid.']'])){
+        $edit_sname = $_POST['edit_sname'];
+        $edit_price = $_POST['edit_price'];
+        $EditStoreNameUnique = row(query("select * from productstore where name = '$edit_sname' and id != '$storeid'"));
+        if ($edit_sname == "") {
+            $es_error = "*This field is required";
+        }elseif ($EditStoreNameUnique > 0) {
+            $es_error = "*This store name has already been taken!";
+        }
+        if ($edit_price == "") {
+            $ep_error = "*This field is required";
+        }
+        //if all clear
+        if (!isset($es_error) && !isset($ep_error)) {
+            //update record without image
+            query("update productstore set name='$edit_sname', price='$edit_price' where id='$storeid'");
+    
+            //redirect back
+            ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
+        }
     }
 }
 ?>
@@ -234,8 +239,8 @@ if(isset($_POST['editsubmit[]'])){
                                                     <div class="tw-w-full tw-py-5 tw-text-center tw-line-clamp-1">No product Store.</div>
                                                 </div>
                                             <?php
-                                                }else
-                                                {while($productstore=fetch($productstorefetch)) { ?>
+                                                }else{
+                                                while($productstore=fetch($productstorefetch)) { ?>
                                                 <div class="row tw-rounded-lg tw-border-2 tw-border-solid tw-border-gray-300 tw-border-opacity-0 hover:tw-border-opacity-100">
                                                     <div class="tw-py-3 col-4 tw-flex">
                                                         <div style="width: 95%" class="tw-line-clamp-1"><?= $productstore['name'] ?></div>

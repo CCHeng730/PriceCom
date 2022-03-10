@@ -3,7 +3,7 @@
     <nav class="navbar top-space navbar-expand-lg navbar-light bg-white header-light fixed-top header-reverse-scroll">
         <div class="container-lg nav-header-container">
             <div class="col-auto col-sm-6 col-lg-2 mr-auto pl-lg-0">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="User/index.php">
                     <div style="font-size:35px; text-shadow: #FC0 1px 0 10px;" class="tw-font-bold tw-italic tw-text-black">PriceCom</div>
                 </a>
             </div>
@@ -17,7 +17,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav alt-font">
                         <li class="nav-item dropdown megamenu">
-                            <a href="#" class="nav-link">Home</a>
+                            <a href="User/index.php" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item dropdown simple-dropdown">
                             <a href="#" class="nav-link">Product</a>
