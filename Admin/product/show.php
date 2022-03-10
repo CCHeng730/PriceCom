@@ -42,8 +42,6 @@ if (isset($_POST['submit'])) {
 foreach($store_fetchall as $p_store)
 {
     $storeid = (string)$p_store['id'];
-    var_dump($storeid);
-    die();
     if(isset($_POST['editsubmit['.$storeid.']'])){
         $edit_sname = $_POST['edit_sname'];
         $edit_price = $_POST['edit_price'];
