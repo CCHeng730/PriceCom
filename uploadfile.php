@@ -2,7 +2,7 @@
 ob_start();
 include_once("../../connection.php");
 
-function uploadFile($photo)
+function uploadFile($photo, $filedir = "picture/" )
 {
     $status = 0;
     $response = '';
@@ -11,9 +11,8 @@ function uploadFile($photo)
     $img_name   = $photo['name'];
     $encode_imgName = rand(1000000,9999999);
 
-    $target_dir = "picture/";
     $file_type = '.' . substr($img_name, strrpos($img_name, '.') + 1);
-    $target_file = $target_dir . basename($photo['name']);
+    $target_file = $filedir . basename($photo['name']);
 
     // Select file type
     $imageFileType = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
@@ -22,14 +21,14 @@ function uploadFile($photo)
     $extensions_arr = array("jpg", "jpeg", "png");
 
     if ($img_name != null) {//file exist
-        if (!is_dir($target_dir)) { //create dir if not created
-            mkdir($target_dir);
+        if (!is_dir($filedir)) { //create dir if not created
+            mkdir($filedir);
         }
         if (in_array($imageFileType, $extensions_arr)) { //if in accepted file format
             if ($photo["size"] < 5000000) { //if within max file size
-                if (move_uploaded_file($photo['tmp_name'], $target_dir . $encode_imgName . $file_type)) { //upload file function success
+                if (move_uploaded_file($photo['tmp_name'], $filedir . $encode_imgName . $file_type)) { //upload file function success
                     //full file path
-                    $filename = $target_dir . $encode_imgName . $file_type;
+                    $filename = $filedir . $encode_imgName . $file_type;
                     $response = $filename;
                     $status = 1;
 

@@ -33,7 +33,7 @@ if(!isset($_SESSION['uid'])) {
                             <div class="tw-w-4/5 tw-mx-auto tw-my-1">
                                 <a href="User/profile/profile.php" class=" tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-rounded-lg tw-uppercase tw-bg-black tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fas fa-user"></i> 
+                                        <i style="width: 10%;" class="fa-solid fa-user"></i>
                                         <span style="width: 90%;">My Account</span>
                                     </div>
                                 </a>
@@ -64,13 +64,13 @@ if(!isset($_SESSION['uid'])) {
                                 </div>
                                 <a href="User/profile/purchase_history.php" class="tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-mb-3 tw-rounded-lg tw-uppercase hover:tw-bg-gray-500 tw-text-gray-400 hover:tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fas fa-shopping-basket"></i>
+                                        <i style="width: 10%;" class="fa-solid fa-shopping-basket"></i>
                                         <span style="width: 90%;">Purchase History</span>
                                     </div>
                                 </a>
                                 <a href="User/auth/logout.php" class="tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-rounded-lg tw-uppercase hover:tw-bg-gray-500 tw-text-gray-400 hover:tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fas fa-sign-out-alt"></i>
+                                        <i style="width: 10%;" class="fa-solid fa-sign-out-alt"></i>
                                         <span style="width: 90%;">LogOut</span>
                                     </div>
                                 </a>
@@ -86,7 +86,7 @@ if(!isset($_SESSION['uid'])) {
                             <div class="row">
                                 <div class="col-4">
                                     <div class="tw-h-full tw-py-24" style="border-right: 2px solid #E8E8E8;">
-                                        <img src="assets/image/default-profile.png" class="tw-rounded-lg tw-mx-auto" style="width:150px; height:150px;" alt="">
+                                        <img src="<?=(isset($Headeruser['image']))?'./User/profile/'.$Headeruser['image']:'assets/image/default-profile.png'?>" class="tw-rounded-lg tw-mx-auto" style="width:150px; height:150px;" alt="">
                                         <div class="tw-mt-2 tw-text-center">Profile Image</div>
                                     </div>
                                 </div>
@@ -94,25 +94,25 @@ if(!isset($_SESSION['uid'])) {
                                     <div class="d-flex tw-mb-7">
                                         <div style="width: 25%; font-size: 16px;" class="tw-font-medium tw-py-3 tw-text-right tw-text-gray-400">Name :</div>
                                         <div style="width: 75%;" class="tw-flex">
-                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="Username" readonly>
+                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="<?=$Headeruser['username']?>" readonly>
                                         </div>
                                     </div>
                                     <div class="d-flex tw-mb-7">
                                         <div style="width: 25%; font-size: 16px;" class="tw-font-medium tw-py-3 tw-text-right tw-text-gray-400">Phone Number :</div>
                                         <div style="width: 75%;" class="tw-flex">
-                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="012-3456789" readonly>
+                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value=<?=$Headeruser['phone_no']?> readonly>
                                         </div>
                                     </div>
                                     <div class="d-flex tw-mb-7">
                                         <div style="width: 25%; font-size: 16px;" class="tw-font-medium tw-py-3 tw-text-right tw-text-gray-400">Email :</div>
                                         <div style="width: 75%;" class="tw-flex">
-                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="email@email.com" readonly>
+                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="<?=$Headeruser['email']?>" readonly>
                                         </div>
                                     </div>
                                     <div class="d-flex tw-mb-7">
                                         <div style="width: 25%; font-size: 16px;" class="tw-font-medium tw-py-3 tw-text-right tw-text-gray-400">Gender :</div>
                                         <div style="width: 75%;" class="tw-flex">
-                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="Male/Female" readonly>
+                                            <input class="tw-rounded-lg tw-mx-5" style="border: 2px solid #E8E8E8;" type="text" value="<?=($Headeruser['gender'] == 0)?'Male':'Female'?>" readonly>
                                         </div>
                                     </div>
                                     <a href="User/profile/edit_profile.php" class="tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500" style="margin-left:28%; text-decoration:none;">Edit Profile</a>
