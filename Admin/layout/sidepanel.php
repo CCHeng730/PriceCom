@@ -2,7 +2,7 @@
     <!--begin::Brand-->
     <div class="brand tw-w-full d-flex" id="kt_brand">
         <!--begin::Logo-->
-        <a href="#">
+        <a href="Admin/admin/index.php">
             <!-- <img src="" style="width: 100px; height:50px;" alt=""> -->
             <div class="tw-font-semibold tw-text-white tw-text-2xl">PriceCom</div>
         </a>

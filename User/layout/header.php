@@ -22,9 +22,6 @@
                             <a href="User/index.php" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item dropdown simple-dropdown">
-                            <a href="#" class="nav-link">Product</a>
-                        </li>
-                        <li class="nav-item dropdown simple-dropdown">
                             <a href="User/profile/profile.php" class="nav-link">Profile</a>
                         </li>
                     </ul>

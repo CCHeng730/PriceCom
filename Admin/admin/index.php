@@ -106,11 +106,11 @@ $currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]'
                                                             <?php
                                                             if($_SESSION['super'] == 1 ){
                                                             ?>
-                                                            <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: orange;" class="tw-text-white tw-mx-2 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                            <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-mx-2 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
                                                                 <?php
                                                                     if($admin['id']!=$_SESSION['aid']){
                                                                 ?>
-                                                            <a href="Admin/admin/delete.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" style="background-color: darkred;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                                                            <a href="Admin/admin/delete.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
                                                             <?php
                                                                     }
                                                             }

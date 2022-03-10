@@ -94,8 +94,8 @@ $total_user = mysqli_num_rows($userQuery);
                                                     <td><?=$user['email']?></td>
                                                     <td><?=$user['phone_no']?></td>
                                                     <td class="tw-text-center">
-                                                        <span class="<?=($user['status'] == 1)? 'tw-bg-red-300': 'tw-bg-green-400'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">
-                                                            <?=($user['status'] == 1)? 'Terminate': 'Active'?>
+                                                        <span class="<?=($user['status'] == 0)? 'tw-bg-red-300': 'tw-bg-green-400'?> tw-text-center tw-rounded-md tw-text-white tw-px-4 tw-py-1">
+                                                            <?=($user['status'] == 0)? 'Terminate': 'Active'?>
                                                         </span>
                                                     </td>
                                                     <td class="tw-text-center">

@@ -81,11 +81,11 @@ $total_category = mysqli_num_rows($categoryQuery);
                                         <table class="table table-checkable dataTable dtr-inline w-100 tw-font-medium" id="datatable">
                                             <thead>
                                                 <tr class="tw-border-b-2 tw-b-gray-300">
-                                                    <th style="width: 15%">CategoryID</th>
-                                                    <th style="width: 35%">Name</th>
+                                                    <th style="width: 13%">CategoryID</th>
+                                                    <th style="width: 30%">Name</th>
                                                     <th style="width: 20%">image</th>
-                                                    <th style="width: 15%">Status</th>
-                                                    <th style="width: 15%"></th>
+                                                    <th style="width: 12%">Status</th>
+                                                    <th style="width: 25%"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -103,7 +103,8 @@ $total_category = mysqli_num_rows($categoryQuery);
                                                     </td>
                                                     <td class="tw-text-center">
                                                         <a href="Admin/category/show.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
-                                                        <a href="Admin/category/edit.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                        <a href="Admin/category/edit.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                        <a href="Admin/category/delete.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
                                                     </td>
                                                 </tr>
                                             <?php

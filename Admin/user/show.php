@@ -91,7 +91,7 @@ $userfetch = fetch(query("select * from user where id = '$userid'"));
                                                         id="kt_user_add_avatar">
                                                         <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
                                                                 style="width: 140px; height:140px;" alt=""
-                                                                src="<?=($userfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin".$userfetch['image']?>"/>
+                                                                src="<?=($userfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "User/profile/".$userfetch['image']?>"/>
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,3 +1,7 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>

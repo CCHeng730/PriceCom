@@ -1,3 +1,22 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$orderid = $_GET['id'];
+$orderfetch = fetch(query("select * from purchase_history where id = '$orderid'"));
+//store
+$store_id = $orderfetch['product_store_id'];
+$storefetch = fetch(query("select * from productstore where id = '$store_id'"));
+//product 
+$product_id = $orderfetch['product_id'];
+$productfetch = fetch(query("select * from product where id = '$product_id'"));
+//user
+$userid = $orderfetch['user_id'];
+$userfetch = fetch(query("select * from user where id = '$userid'"));
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,14 +35,14 @@
                         <!--begin::Page Title-->
                         <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">User</h5>
                         <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">USERNAME</h5>
+                        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"><?= $userfetch['username']?></h5>
                         <!--end::Page Title-->
                     </div>
                     <!--end::Info-->
                 </div>
                 <!--begin::Toolbar-->
                 <div class="d-flex align-items-start tw-pr-5">
-                    <a href="Admin/user/order.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
+                    <a href="Admin/user/order.php?id=<?=$userfetch['id']?>&auth=<?=md5($userfetch['id']).sha1($userfetch['id'])?>" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                         Back
                     </a>
                 </div>
@@ -45,13 +64,13 @@
                                                 <td style="width: 35%; vertical-align: top;">
                                                 <!--begin: Pic-->
                                                     <div class="flex-shrink-0 mt-lg-0 mt-3">
-                                                        <img alt="" class="tw-object-cover tw-inset-0 tw-rounded-lg tw-w-full" style="height:150px;" src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" />
+                                                        <img alt="" class="tw-object-cover tw-inset-0 tw-rounded-lg tw-w-full" style="height:150px;" src="<?= 'Admin/product/'.$productfetch['image']?>" />
                                                     </div>
                                                     <!--end: Pic-->
                                                 </td>
                                                 <td style="width: 65%; vertical-align: top;" class="tw-pl-5">
-                                                    <div style="font-size: 20px" class="d-flex text-dark font-weight-bold">input_name</div>
-                                                    <div class="tw-line-clamp-5 font-weight-bold text-dark-50">Description.</div>
+                                                    <div style="font-size: 20px" class="d-flex text-dark font-weight-bold"><?= $productfetch['name']?></div>
+                                                    <div class="tw-line-clamp-5 font-weight-bold text-dark-50"><?= $productfetch['description']?></div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -65,8 +84,8 @@
                                                         <i style="font-size: 25px" class="tw-text-gray-300 fas fa-coins"></i>
                                                     </span>
                                                     <div class="d-flex flex-column text-dark-75">
-                                                        <span class="font-weight-bolder font-size-sm">Total Price</span>
-                                                        <span class="font-weight-bolder font-size-h5">RM 00.00</span>
+                                                        <span class="font-weight-bolder font-size-sm">Product Price</span>
+                                                        <span class="font-weight-bolder font-size-h5">RM <?= number_format($storefetch['price'], 2, '.', ' ') ?></span>
                                                     </div>
                                                 </div>
                                                 <!--end: Item-->
@@ -77,7 +96,7 @@
                                                     </span>
                                                     <div class="d-flex flex-column text-dark-75">
                                                         <span class="font-weight-bolder font-size-sm">Store</span>
-                                                        <span class="font-weight-bolder font-size-h5">Store name</span>
+                                                        <span class="font-weight-bolder font-size-h5"><?= $storefetch['name']?></span>
                                                     </div>
                                                 </div>
                                                 <!--end: Item-->
@@ -86,7 +105,7 @@
                                             <div class="d-flex my-1">
                                                 <div class="d-flex tw-justify-end py-2">
                                                     <div class="font-weight-bold tw-py-2 tw-mr-4">Purchased at :</div>
-                                                    <span class="tw-py-2 btn-text text-uppercase font-weight-bold">00/00/0000</span>
+                                                    <span class="tw-py-2 btn-text text-uppercase font-weight-bold"><?= date('d-m-Y', strtotime($orderfetch['created_at'])) ?></span>
                                                 </div>
                                             </div>
                                             <!--end: Item-->
@@ -119,9 +138,9 @@
                                             </div>
                                             <div class="row tw-py-3">
                                                 <div class="col-6 tw-py-2">
-                                                    <div class="tw-font-medium" style="font-size: 15px;">input_name</div>
+                                                    <div class="tw-font-medium" style="font-size: 15px;"><?= $productfetch['name']?></div>
                                                 </div>
-                                                <div class="col-6 tw-py-2 tw-font-medium" style="font-size: 15px;">RM 00.00</div>
+                                                <div class="col-6 tw-py-2 tw-font-medium" style="font-size: 15px;">RM <?= number_format($storefetch['price'], 2, '.', ' ') ?></div>
                                             </div>
                                             <div class="row tw-border-t-2 tw-py-2 tw-border-solid tw-border-gray-300">
                                                 <div class="col-6">
@@ -133,7 +152,7 @@
                                                 <div class="col-6">
                                                     <div class="tw-font-medium" style="font-size: 15px;">Total Amount</div>
                                                 </div>
-                                                <div class="col-6 tw-font-medium" style="font-size: 15px;">RM 00.00</div>
+                                                <div class="col-6 tw-font-medium" style="font-size: 15px;">RM <?= number_format($orderfetch['total'], 2, '.', ' ') ?></div>
                                             </div>
                                         </div>
                                     </div>

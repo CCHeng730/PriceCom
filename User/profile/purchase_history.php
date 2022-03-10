@@ -1,3 +1,13 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['uid'])) { //check if logged in
+    ?><script>window.location.href="auth/login.php"</script><?php
+}
+$currentuser_id = $_SESSION['uid'];
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,30 +62,43 @@
                                 <thead style="border-bottom: 2px solid #E8E8E8;">
                                     <tr>
                                         <th style="width: 15%;" class="tw-py-3"></th>
-                                        <th style="width: 35%;" class="tw-py-3">Product Name</th>
-                                        <th style="width: 20%;" class="tw-py-3">Store</th>
-                                        <th style="width: 15%;" class="tw-py-3">Price</th>
+                                        <th style="width: 25%;" class="tw-py-3">Product Name</th>
+                                        <th style="width: 15%;" class="tw-py-3">Store</th>
+                                        <th style="width: 15%;" class="tw-py-3">Shipping Fee</th>
+                                        <th style="width: 15%;" class="tw-py-3">Total Price</th>
                                         <th style="width: 15%;" class="tw-py-3"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <?php
+                                        $purchaseQuery = query("select * from purchase_history where user_id = '$currentuser_id'");
+                                        while($purchase_history=fetch($purchaseQuery)) {
+                                            $purchase_store_id = $purchase_history['product_store_id'];
+                                            $current_product_id = $purchase_history['product_id'];
+                                            $product_store = fetch(query("select * from productstore where id = '$purchase_store_id'"));
+                                            $current_product = fetch(query("select * from product where id = '$current_product_id'"));
+                                    ?>
+                                    <tr class="tw-border-b-2">
                                         <td class="tw-py-3">
-                                            <img style="width: 80px; height:80px;" class="tw-mx-auto tw-rounded" src="assets/image/default-profile.png" alt="">
+                                            <img style="width: 80px; height:80px;" class="tw-mx-auto tw-rounded tw-object-contain" src="<?= 'Admin/product/'.$current_product['image']?>" alt="">
                                         </td>
                                         <td class="tw-py-3">
-                                            <div class="tw-font-medium">Product Name</div>
+                                            <div class="tw-font-medium"><?= $purchase_history['product_name']?></div>
                                         </td>
                                         <td class="tw-py-3">
-                                            <div class="tw-font-medium">Product Store</div>
+                                            <div class="tw-font-medium"><?= $product_store['name']?></div>
                                         </td>
                                         <td class="tw-py-3">
-                                            <div class="tw-font-medium">RM 00.00</div>
+                                            <div class="tw-font-medium">RM <?= number_format($purchase_history['shipping_fee'], 2, '.', ' ')?></div>
                                         </td>
                                         <td class="tw-py-3">
-                                            <a href="#" class="tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500 tw-no-underline">View Product</a>
+                                            <div class="tw-font-medium">RM <?= $purchase_history['total']?></div>
+                                        </td>
+                                        <td class="tw-py-3">
+                                            <a href="User/product/product_detail.php?id=<?= $current_product_id?>" class="tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500 tw-no-underline">View Product</a>
                                         </td>
                                     </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

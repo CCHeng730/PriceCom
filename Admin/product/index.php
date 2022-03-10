@@ -108,7 +108,7 @@ $total_product = mysqli_num_rows($productQuery);
                                                     </td>
                                                     <td class="tw-text-center">
                                                         <a href="Admin/product/show.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
-                                                        <a href="Admin/product/edit.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" style="background-color: orange;" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                        <a href="Admin/product/edit.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
                                                     </td>
                                                 </tr>
                                             <?php

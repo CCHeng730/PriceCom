@@ -35,7 +35,7 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                             <div class="col-12 col-xl-6 col-sm-7 d-flex flex-column justify-content-center text-center">
                                 <span class="alt-font font-weight-500 text-extra-medium letter-spacing-2px text-white text-uppercase d-block margin-40px-bottom"></span>
                                 <h1 style="font-size: 60px" class="alt-font letter-spacing-2px font-weight-800 text-white text-uppercase text-shadow-large margin-35px-bottom xs-w-90 mx-auto">WELCOME TO <br>PRICECOM</h1>
-                                <a href="#" class="btn btn-fancy btn-large btn-dark-gray btn-box-shadow align-self-center">View All Product</a>
+                                <!-- <a href="#" class="btn btn-fancy btn-large btn-dark-gray btn-box-shadow align-self-center">View All Product</a> -->
                             </div>
                         </div>
                     </div>

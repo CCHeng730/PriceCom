@@ -15,11 +15,11 @@ if(!isset($_SESSION['uid'])) {
         <meta charset="utf-8" />
         <title>PriceCom</title>
         <link href="assets/app.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link rel="stylesheet" type="text/css" href="assets/user/css/font-icons.min.css">
         <link rel="stylesheet" type="text/css" href="assets/user/css/theme-vendors.min.css">
         <link rel="stylesheet" type="text/css" href="assets/user/css/style.css" />
         <link rel="stylesheet" type="text/css" href="assets/user/css/responsive.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
     <body>
@@ -33,7 +33,7 @@ if(!isset($_SESSION['uid'])) {
                             <div class="tw-w-4/5 tw-mx-auto tw-my-1">
                                 <a href="User/profile/profile.php" class=" tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-rounded-lg tw-uppercase tw-bg-black tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fa-solid fa-user"></i>
+                                        <i style="width: 10%;" class="fas fa-user"></i>
                                         <span style="width: 90%;">My Account</span>
                                     </div>
                                 </a>
@@ -64,13 +64,13 @@ if(!isset($_SESSION['uid'])) {
                                 </div>
                                 <a href="User/profile/purchase_history.php" class="tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-mb-3 tw-rounded-lg tw-uppercase hover:tw-bg-gray-500 tw-text-gray-400 hover:tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fa-solid fa-shopping-basket"></i>
+                                        <i style="width: 10%;" class="fas fa-shopping-basket"></i>
                                         <span style="width: 90%;">Purchase History</span>
                                     </div>
                                 </a>
                                 <a href="User/auth/logout.php" class="tw-no-underline">
                                     <div class="tw-pl-4 tw-font-medium tw-py-2 tw-rounded-lg tw-uppercase hover:tw-bg-gray-500 tw-text-gray-400 hover:tw-text-white" style="font-size: 16px">
-                                        <i style="width: 10%;" class="fa-solid fa-sign-out-alt"></i>
+                                        <i style="width: 10%;" class="fas fa-sign-out-alt"></i>
                                         <span style="width: 90%;">LogOut</span>
                                     </div>
                                 </a>

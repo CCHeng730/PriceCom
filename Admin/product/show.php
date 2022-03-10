@@ -6,10 +6,13 @@ if(!isset($_SESSION['aid'])) { //check if logged in
     ?><script>window.location.href="../auth/login.php"</script><?php
 }
 $productid = $_GET['id'];
-$productfetch = fetch(query("select * from product where id = '$productid'"));
-$productstorefetch = query("select * from productstore where product_id = '$productid'");
+$productfetch = fetch(query("select * from product where deleted_at is null and id = '$productid'"));
+$productstorefetch = query("select * from productstore where deleted_at is null and product_id = '$productid'");
 $store_fetchall = fetchall(query("select * from productstore where product_id = '$productid'"));
 $total_productstore = mysqli_num_rows($productstorefetch);
+$purchasehistoryQuery = query("select * from purchase_history where product_id = '$productid'");
+$total_sales = fetch(query("select sum(product_price) as total from purchase_history where product_id = '$productid'"));
+$total_sold = mysqli_num_rows($purchasehistoryQuery);
 
 // Create Store
 if (isset($_POST['submit'])) {
@@ -142,7 +145,7 @@ foreach($store_fetchall as $p_store)
                                             </span>
                                             <div class="d-flex flex-column text-dark-75">
                                                 <span class="font-weight-bolder font-size-sm">Total Sales</span>
-                                                <span class="font-weight-bolder font-size-h5">RM 00.00</span>
+                                                <span class="font-weight-bolder font-size-h5">RM <?=($total_sales['total'] == null)? '00.00': $total_sales['total']?></span>
                                             </div>
                                         </div>
                                         <!--end: Item-->
@@ -153,7 +156,7 @@ foreach($store_fetchall as $p_store)
                                             </span>
                                             <div class="d-flex flex-column text-dark-75">
                                                 <span class="font-weight-bolder font-size-sm">Sold</span>
-                                                <span class="font-weight-bolder font-size-h5">00</span>
+                                                <span class="font-weight-bolder font-size-h5"><?= $total_sold?></span>
                                             </div>
                                         </div>
                                         <!--end: Item-->
@@ -164,7 +167,7 @@ foreach($store_fetchall as $p_store)
                                             </span>
                                             <div class="d-flex flex-column text-dark-75">
                                                 <span class="font-weight-bolder font-size-sm">Total Store</span>
-                                                <span class="font-weight-bolder font-size-h5">00</span>
+                                                <span class="font-weight-bolder font-size-h5"><?= $total_productstore?></span>
                                             </div>
                                         </div>
                                         <!--end: Item-->
@@ -257,6 +260,10 @@ foreach($store_fetchall as $p_store)
                                                         <button type="button" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="modal" data-target="#addStore_<?=$productstore['id']?>">
                                                             <i class="fas fa-edit" title="Edit Store"></i>
                                                         </button>
+                                                        <a href="Admin/product/delete_store.php?id=<?=$productstore['id']?>&auth=<?=md5($productstore['id']).sha1($productstore['id'])?>" 
+                                                            class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" onclick="return confirm('Are you sure to delete this store?')">
+                                                            <i class="fas fa-trash-alt" title="Delete Store"></i>
+                                                        </a>
                                                     </div>
                                                     <!-- start::Modal -->
                                                     <div class="modal fade" id="addStore_<?=$productstore['id']?>" tabindex="-1" role="dialog" aria-labelledby="addStoreTitle" aria-hidden="true">
