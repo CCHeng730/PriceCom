@@ -47,15 +47,13 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                 <div class="row">
                     <div class="col-9 tw-p-2 tw-mx-auto tw-rounded-md">
                         <div class="row">
-                            <div class="col-12 tw-mb-5 tw-font-black tw-text-center" style="font-size:30px;">Category</div>
+                            <div class="col-12 tw-mb-5 tw-font-black tw-text-center" style="font-size:30px;">CATEGORY</div>
                             <?php while($category=fetch($categoryQuery)) { ?>
                                 <div class="col-2">
-                                    <a href="#" style="text-decoration: none;">
-                                        <div class="tw-py-2 tw-rounded-lg tw-px-1 hover:tw-bg-white hover:tw-shadow-xl" style="height: 10rem;">
-                                            <img style="width: 80px; height: 80px;" class="tw-my-2 tw-mx-auto tw-object-cover tw-rounded-full tw-inset-0" src="<?= 'Admin/category/'.$category['image']?>" alt="">
-                                            <div class="tw-text-center tw-font-semibold tw-uppercase tw-text-black tw-line-clamp-2"><?= $category['name'] ?></div>
-                                        </div>
-                                    </a>
+                                    <div class="tw-py-2 tw-rounded-lg tw-px-1" style="height: 10rem;">
+                                        <img style="width: 80px; height: 80px;" class="tw-my-2 tw-mx-auto tw-object-cover tw-rounded-full tw-inset-0" src="<?= 'Admin/category/'.$category['image']?>" alt="">
+                                        <div class="tw-text-center tw-font-semibold tw-uppercase tw-text-black tw-line-clamp-2"><?= $category['name'] ?></div>
+                                    </div>
                                 </div>
                             <?php } ?>
                         </div>
@@ -68,9 +66,10 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                                 while($product=fetch($productQuery)) { 
                                     $product_id = $product['id'];
                                     $product_storeQuery = query("select * from productstore where deleted_at IS NULL and product_id = '$product_id'");
-                                    $lowest_priceFetch = fetch(query("select * from productstore where deleted_at IS NULL and product_id = '$product_id' order by price "));
-                                    //$lowest_priceFetch['price'][0]; // output: 8 but the actual lowest price is RM 89.99 
                                     $total_store = mysqli_num_rows($product_storeQuery);
+                                    $lowest_priceFetch = fetch(query("select * from productstore where deleted_at IS NULL and product_id = '$product_id' order by price "));
+                                    $purchaseQuery = query("select * from purchase_history where product_id = '$product_id'");
+                                    $total_product_sold = mysqli_num_rows($purchaseQuery);
                                     if(isset($product_storeQuery)){
                                         if($total_store > 1){
                             ?>
@@ -80,12 +79,15 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                                                 <img src="<?= 'Admin/product/'.$product['image']?>" alt="" style="width: 210px; height: 200px;" class="tw-inset-0 tw-mx-auto tw-object-contain">
                                                 <div class="product-overlay bg-gradient-extra-midium-gray-transparent" style="top:-128px;"></div>
                                                 <div class="tw-absolute" style="left: 79px; top: 80px;"></div>
-                                                <a href="#" class="tw-no-underline tw-w-full">
+                                                <a href="User/product/product_detail.php?id=<?=$product['id']?>" class="tw-no-underline tw-w-full">
                                                     <div class="product_info tw-w-full">
                                                         <div class="tw-w-full">
-                                                            <div class="font-weight-600 tw-px-3 tw-pt-2 tw-w-full tw-text-black tw-line-clamp-1 tw-no-underline hover:tw-text-blue-500" style="font-size: 20px; cursor: pointer;"><?= $product['name'] ?></div>
+                                                            <div class="font-weight-600 tw-px-3 tw-w-full tw-text-black tw-line-clamp-1 tw-no-underline hover:tw-text-blue-500" style="font-size: 20px; cursor: pointer;"><?= $product['name'] ?></div>
                                                             <div class="tw-w-full tw-px-3 tw-pb-5">
                                                                 <span class="font-weight-600 tw-text-red-500" style="font-size: 20px;">RM <?= $lowest_priceFetch['price'] ?></span>
+                                                            </div>
+                                                            <div class="tw-w-full tw-text-right tw-px-3 tw-pb-2">
+                                                                <span class="font-weight-600 tw-text-gray-500" style="font-size: 18px;"><?= $total_product_sold ?> sold</span>
                                                             </div>
                                                             <div class="tw-bg-blue-900 tw-py-2 tw-w-full tw-text-white tw-font-semibold tw-px-4"><?= $total_store ?> Store Compared</div>
                                                         </div>

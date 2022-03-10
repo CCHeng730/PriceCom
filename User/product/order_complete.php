@@ -42,7 +42,7 @@
                     <i style="font-size: 90px;" class="far fa-check-circle"></i>
                     <div style="font-size: 30px;" class="tw-my-6 tw-font-semibold tw-text-black">Your Order Is Completed!</div>
                     <div style="font-size: 15px;" class="tw-mb-8">Thank you for your order! Your order is being processed and will <br>be completed within 3-6 hours.</div>
-                    <a href="#" class="tw-no-underline tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500">Back to Homepage</a>
+                    <a href="User/index.php" class="tw-no-underline tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500">Back to Homepage</a>
                 </div>
             </div>
         </div>

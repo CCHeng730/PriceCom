@@ -57,7 +57,12 @@ CREATE TABLE `Category` (
 CREATE TABLE `Purchase_history` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
   `product_store_id` int NOT NULL,
+  `product_name` text NOT NULL,
+  `product_price` double NOT NULL,
+  `shipping_fee` double NOT NULL,
+  `total` double NOT NULL,
   `created_at` datetime
 );
 

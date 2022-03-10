@@ -1,3 +1,21 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['uid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$productid = $_GET['id'];
+$productQuery = fetch(query("select * from product where deleted_at IS NULL and id = '$productid' "));
+$product_category = $productQuery['category_id'];
+$categoryFetch = fetch(query("select * from category where deleted_at IS NULL and id = '$product_category' "));
+//product store
+$productstoreQuery = query("select * from productstore where deleted_at IS NULL and product_id = '$productid' order by price ");
+$total_store = mysqli_num_rows($productstoreQuery);
+//Purchase history
+$purchaseQuery = query("select * from purchase_history where product_id = '$productid'");
+$total_product_sold = mysqli_num_rows($purchaseQuery);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +38,7 @@
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-lg-9">
-                                <div style="font-size: 30px;" class="tw-ml-5 tw-text-white tw-font-bold ">Order Completed</div>
+                                <div style="font-size: 30px;" class="tw-ml-5 tw-text-white tw-font-bold "><?= $productQuery['name'] ?></div>
                             </div>
                             <div class="col-lg-3">
                                 <ul class="d-flex justify-content-lg-end">
@@ -29,7 +47,7 @@
                                     </li>
                                     <li class="tw-flex">
                                         <i style="margin-top: 5px; font-size: 20px" class="fa fa-angle-right tw-text-white ml-2 mr-2" aria-hidden="true"></i>
-                                        <div style="font-size: 20px" class="font-weight-600 tw-text-gray-300 tw-no-underline">Profile</div>
+                                        <div style="font-size: 20px" class="font-weight-600 tw-text-gray-300 tw-no-underline">product</div>
                                     </li>
                                 </ul>
                             </div>
@@ -37,12 +55,100 @@
                     </div> 
                 </div> 
             </div>
-            <div class="container tw-my-32">
-                <div class="tw-text-center">
-                    <i style="font-size: 90px;" class="far fa-check-circle"></i>
-                    <div style="font-size: 30px;" class="tw-my-6 tw-font-semibold tw-text-black">Your Order Is Completed!</div>
-                    <div style="font-size: 15px;" class="tw-mb-8">Thank you for your order! Your order is being processed and will <br>be completed within 3-6 hours.</div>
-                    <a href="#" class="tw-no-underline tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500">Back to Homepage</a>
+            <div class="container tw-mt-32 tw-bg-gray-50">
+                <div class="row">
+                    <div class="col-12 tw-mx-auto tw-mb-5">
+                        <div class="row tw-rounded-lg tw-bg-white tw-shadow-lg tw-p-5">
+                            <div class="col-9 tw-flex">
+                                <img class="tw-rounded-lg tw-shadow-lg tw-mt-3" style="width: 350px; height:250px;" src="<?= 'Admin/product/'.$productQuery['image']?>" alt="">
+                                <div class="tw-border-l-2 tw-pl-5 tw-ml-5" style="border-color: #E8E8E8;">
+                                    <div style="font-size:30px;" class="tw-text-black tw-font-bold"><?= $productQuery['name'] ?></div>
+                                    <div style="font-size:18px;" class="tw-text-gray-400 tw-font-medium">Category : <?= $categoryFetch['name'] ?></div>
+                                    <div style="font-size:16px;" class="tw-text-black "><?= $productQuery['description'] ?></div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="tw-border-l-2 tw-pl-5" style="border-color: #E8E8E8;">
+                                    <div class="tw-flex tw-mb-3 tw-rounded-lg tw-shadow tw-px-5 tw-pt-3 tw-pb-4">
+                                        <i style="font-size: 30px; width:20%;" class="tw-pt-3 tw-text-gray-400 fas fa-coins tw-text-center"></i>
+                                        <div class="tw-ml-3 tw-pt-2" style=" width:80%;">
+                                            <span class="tw-text-black tw-font-bold" style="font-size: 20px;">Total Sold : </span>
+                                            <span class="tw-text-black tw-font-semibold" style="font-size: 15px;"><?= $total_product_sold?></span>
+                                        </div>
+                                    </div>
+                                    <div class="tw-flex tw-mb-3 tw-rounded-lg tw-shadow tw-px-5 tw-pt-3 tw-pb-4">
+                                        <i style="font-size: 30px; width:20%;" class="tw-pt-3 tw-text-gray-400 fas fa-truck tw-text-center"></i>
+                                        <div class="tw-ml-3" style=" width:80%;">
+                                            <div class="tw-text-black tw-font-bold" style="font-size: 20px;">Shipping Fee : </div>
+                                            <div class="tw-text-black tw-font-semibold" style="font-size: 15px;">RM 5.00</div>
+                                        </div>
+                                    </div>
+                                    <div class="tw-flex tw-mb-3 tw-rounded-lg tw-shadow tw-px-5 tw-pt-3 tw-pb-4">
+                                        <i style="font-size: 30px; width:20%;" class="tw-pt-3 tw-text-gray-400 fas fa-store tw-text-center"></i>
+                                        <div class="tw-ml-3 tw-pt-2" style=" width:80%;">
+                                            <span class="tw-text-black tw-font-bold" style="font-size: 20px;">Store : </span>
+                                            <span class="tw-text-black tw-font-semibold" style="font-size: 15px;"><?= $total_store?></span>
+                                        </div>
+                                    </div>
+                                    <div class="tw-flex tw-mb-3 tw-rounded-lg tw-shadow tw-px-5 tw-pt-3 tw-pb-4">
+                                        <i style="font-size: 30px; width:20%;" class="tw-pt-3 tw-text-gray-400 far fa-calendar-alt tw-text-center"></i>
+                                        <div class="tw-ml-3" style=" width:80%;">
+                                            <div class="tw-text-black tw-font-bold" style="font-size: 20px;">Created at</div>
+                                            <div class="tw-text-black tw-font-semibold" style="font-size: 15px;"><?= date('d-m-Y', strtotime($productQuery['created_at'])) ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 tw-text-center tw-font-semibold tw-py-5" style="font-size: 25px;">Compared Store Price</div>
+                    <div class="col-12 tw-h-1 tw-rounded tw-mx-auto tw-my-5" style="background-color: #E8E8E8;"></div>
+                    <?php 
+                        //Lowest Store price
+                        $lowest_priceFetch = fetch($productstoreQuery);
+                        $lowest_price_id = $lowest_priceFetch['id'];
+                        $lowest_price_purchase_historyQuery = query("select * from purchase_history where product_store_id = '$lowest_price_id' ");
+                        $total_lowest_sold = mysqli_num_rows($lowest_price_purchase_historyQuery);
+                    ?>
+                        <div class="col-4 tw-mb-32">
+                            <div class="tw-mx-auto tw-mt-7 tw-shadow-lg tw-rounded-lg">
+                                <div class="tw-w-full tw-py-5 tw-bg-green-300 tw-text-white tw-text-center tw-font-black" style="font-size: 25px; border-top-right-radius:10px; border-top-left-radius:10px;">LOWEST PRICE</div>
+                                <div class="tw-w-full tw-text-center tw-mt-5 tw-pb-5">
+                                    <div class="tw-text-black tw-font-bold" style="font-size: 20px;"><?= $lowest_priceFetch['name'] ?></div>
+                                    <div class="tw-h-1 tw-rounded tw-mx-20 tw-my-5" style="background-color: #E8E8E8;"></div>
+                                    <div class="tw-mb-5" style="font-size: 20px;">RM <?= number_format($lowest_priceFetch['price'], 2, '.', ' ') ?></div>
+                                    <div class="tw-h-1 tw-rounded tw-mx-20 tw-my-5" style="background-color: #E8E8E8;"></div>
+                                    <div class="tw-mb-5" style="font-size: 17px;"><?= $total_lowest_sold ?> Sold</div>
+                                    <div class="tw-mt-10 tw-mb-5">
+                                        <a href="User/product/checkout.php?id=<?=$lowest_priceFetch['id']?>" class="tw-bg-green-300 tw-text-white hover:tw-text-green-500 tw-rounded tw-no-underline hover:tw-bg-opacity-0 tw-border-2 tw-border-green-300 tw-px-4 tw-py-2 tw-font-semibold" style="font-size: 16px;">BUY NOW</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php 
+                        //ALL Store price
+                        $product_storeQuery = query("select * from productstore where deleted_at IS NULL and product_id = '$productid' and id != '$lowest_price_id' ");
+                        while($product_store=fetch($product_storeQuery)) { 
+                            $current_store_id = $product_store['id'];
+                            $purchase_historyQuery = query("select * from purchase_history where product_store_id = '$current_store_id' ");
+                            $total_sold = mysqli_num_rows($purchase_historyQuery);
+                    ?>
+                        <div class="col-4 tw-mb-32">
+                            <div class="tw-mx-auto tw-mt-7 tw-shadow-lg tw-rounded-lg">
+                                <div class="tw-w-full tw-py-5 tw-bg-yellow-300 tw-text-white tw-text-center tw-font-black" style="font-size: 25px; border-top-right-radius:10px; border-top-left-radius:10px;">COMPARED PRICE</div>
+                                <div class="tw-w-full tw-text-center tw-mt-5 tw-pb-5">
+                                    <div class="tw-text-black tw-font-bold" style="font-size: 20px;"><?= $product_store['name'] ?></div>
+                                    <div class="tw-h-1 tw-rounded tw-mx-20 tw-my-5" style="background-color: #E8E8E8;"></div>
+                                    <div class="tw-mb-5" style="font-size: 20px;">RM <?= number_format($product_store['price'], 2, '.', ' ') ?></div>
+                                    <div class="tw-h-1 tw-rounded tw-mx-20 tw-my-5" style="background-color: #E8E8E8;"></div>
+                                    <div class="tw-mb-5" style="font-size: 17px;"><?= $total_sold?> Sold</div>
+                                    <div class="tw-mt-10 tw-mb-5">
+                                        <a href="User/product/checkout.php?id=<?=$product_store['id']?>" class="tw-bg-yellow-300 tw-text-white hover:tw-text-yellow-500 tw-rounded tw-no-underline hover:tw-bg-opacity-0 tw-border-2 tw-border-yellow-300 tw-px-4 tw-py-2 tw-font-semibold" style="font-size: 16px;">BUY NOW</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
