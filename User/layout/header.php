@@ -1,4 +1,6 @@
 <header>
+    <?php $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"))?>
+
     <!-- start navigation -->
     <nav class="navbar top-space navbar-expand-lg navbar-light bg-white header-light fixed-top header-reverse-scroll">
         <div class="container-lg nav-header-container">
@@ -31,10 +33,10 @@
             <div class="dropdown">
                 <button class="dropdown-toggle tw-mt-2 tw-pt-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="tw-flex">
-                        <img style="height: 50px; width: 75px;" src="assets/image/profile.png" alt="">
+                        <img style="height: 50px; width: 75px;" src="<?=(isset($Headeruser['imagwe']))?'./User/profile/'.$Headeruser['image']:'assets/image/profile.png'?>" alt="">
                         <div class="tw-text-left tw--ml-2 tw-pt-1">
-                            <div style="font-size: 16px;" class="tw-text-black tw-font-semibold">Username</div>
-                            <div style="font-size: 14px;" class="tw-text-gray-400 tw-font-semibold tw--mt-1">ID : 101000</div>
+                            <div style="font-size: 16px;" class="tw-text-black tw-font-semibold"><?=strtoupper($Headeruser['username'])?></div>
+                            <div style="font-size: 14px;" class="tw-text-gray-400 tw-font-semibold tw--mt-1">ID : <?=$Headeruser['id']?></div>
                         </div>
                         <div><i style="font-size: 25px;" class="fas fa-angle-down tw-mt-4 tw-ml-3"></i></div>
                     </div>

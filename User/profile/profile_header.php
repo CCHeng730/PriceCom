@@ -5,15 +5,18 @@
                 <div class="col-lg-9">
                     <div class="tw-flex tw-mt-5" style="margin-bottom: -100px">
                         <div class="tw-bg-white tw-rounded-md tw-p-2 tw-justify-center">
-                            <img style="width: 12rem; height:10rem;" class="tw-object-cover tw-rounded-md tw-mx-auto tw-inset-0" src="assets/image/default-profile.png" alt="">
+                            <img style="width: 12rem; height:10rem;" class="tw-object-cover tw-rounded-md tw-mx-auto tw-inset-0" src="<?=(isset($Headeruser['image']))?'./User/profile/'.$Headeruser['image']:'assets/image/default-profile.png'?>" alt="">
                         </div>
+
                         <div class="tw-ml-5">
-                            <div style="font-size: 30px;" class="tw-text-white tw-font-bold ">Username</div>
-                            <div style="font-size: 18px;" class="tw-text-white tw--mt-2 tw-font-semibold ">Account ID : 00000000000</div>
+                            <div style="font-size: 30px;" class="tw-text-white tw-font-bold "><?=$Headeruser['username']??''?></div>
+                            <div style="font-size: 18px;" class="tw-text-white tw--mt-2 tw-font-semibold ">Account ID : <?=$Headeruser['id']??''?></div>
                         </div>
-                        <div class="tw-ml-5 tw-py-6">
-                            <a href="User/profile/profile.php" class="tw-no-underline tw-px-6 tw-py-3 tw-text-white tw-rounded-md tw-bg-white hover:tw-bg-opacity-100 hover:tw-text-black tw-bg-opacity-30 tw-font-bold tw-text-lg" style="border: 2px solid white;">Edit Profile</a>
-                        </div>
+                        <?php if($_SERVER['REQUEST_URI'] != '/priceCom/User/profile/edit_profile.php') {?>
+                            <div class="tw-ml-5 tw-py-6">
+                                <a href="User/profile/profile.php" class="tw-no-underline tw-px-6 tw-py-3 tw-text-white tw-rounded-md tw-bg-white hover:tw-bg-opacity-100 hover:tw-text-black tw-bg-opacity-30 tw-font-bold tw-text-lg" style="border: 2px solid white;">Edit Profile</a>
+                            </div>
+                        <?php }?>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -29,5 +32,5 @@
                 </div>
             </div>
         </div> 
-    </div> 
+    </div>
 </div>

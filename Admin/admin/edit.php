@@ -184,6 +184,7 @@ if(isset($_POST['submit'])){
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Name</label>
@@ -199,8 +200,8 @@ if(isset($_POST['submit'])){
                                                 <div class="col-lg-9 col-xl-6">
                                                     <select name="gender" class="form-control form-control-lg form-control-solid">
                                                         <option value="null" selected disabled> -- Choose Your Gender -- </option>
-                                                        <option value="0" <?= ($adminfetch['gender'] == 0)?'selected': (($_POST['gender'] == 0)?'selected':'')?> >Male</option>
-                                                        <option value="1" <?= ($adminfetch['gender'] == 1)?'selected': (($_POST['gender'] == 1)?'selected':'')?> >Female</option>
+                                                        <option value="0" <?= ($_POST['gender']?? null == 0)?'selected': (($adminfetch['gender'] == 0)?'selected':'')?> >Male</option>
+                                                        <option value="1" <?= ($_POST['gender'] ?? null == 1)?'selected': (($adminfetch['gender'] == 1)?'selected':'')?> >Female</option>
                                                     </select>
                                                     <span class="error text-danger"><?= (isset($gerror)) ? $gerror : "" ?></span>
                                                 </div>
