@@ -41,13 +41,13 @@ if (isset($_POST['submit'])) {
 // Edit Store
 foreach($store_fetchall as $p_store)
 {
-    $storeid = (string)$p_store['id'];
-    var_dump($storeid);
-    die();
-    if(isset($_POST['editsubmit['.$storeid.']'])){
+    $storeid = $p_store['id'];
+
+    if(isset($_POST["editsubmit_".$storeid])){
         $edit_sname = $_POST['edit_sname'];
         $edit_price = $_POST['edit_price'];
         $EditStoreNameUnique = row(query("select * from productstore where name = '$edit_sname' and id != '$storeid'"));
+
         if ($edit_sname == "") {
             $es_error = "*This field is required";
         }elseif ($EditStoreNameUnique > 0) {
@@ -56,14 +56,18 @@ foreach($store_fetchall as $p_store)
         if ($edit_price == "") {
             $ep_error = "*This field is required";
         }
+        
+        $price = doubleval(trim($edit_price, "RM"));
         //if all clear
         if (!isset($es_error) && !isset($ep_error)) {
+
             //update record without image
-            query("update productstore set name='$edit_sname', price='$edit_price' where id='$storeid'");
-    
+            query("update productstore set name='$edit_sname', price='$price' where id='$storeid'");
+
             //redirect back
             ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
         }
+
     }
 }
 ?>
@@ -285,7 +289,7 @@ foreach($store_fetchall as $p_store)
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-                                                                        <button type="submit" name="editsubmit[<?= $productstore['id'] ?>]" class="btn btn-primary">Save changes</button>
+                                                                        <button type="submit" name="editsubmit_<?= $productstore['id'] ?>" class="btn btn-primary">Save changes</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
