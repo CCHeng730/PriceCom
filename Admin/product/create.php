@@ -34,13 +34,11 @@ if (isset($_POST['submit'])) {
     if (!isset($nerror) && !isset($derror) && !isset($cerror)) {
         $currentDate = date('Y-m-d H:i:s');
 
-        if (isset($_FILES['photo']['name'])) {
+        if ($_FILES['photo']['name'] != '') {
             $imageResponse = uploadFile($_FILES['photo']);
-        }else{
-            $ierror = "*This field is required";
         }
 
-        if ($imageResponse != null) { //no upload file
+        if (isset($_FILES['photo']['name']) && $imageResponse != null) { //no upload file
             if ($imageResponse[1] != 0) { //success upload file
                 //insert record
                 query("insert into product (name,description,category_id,image,created_at)

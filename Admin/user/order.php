@@ -1,3 +1,26 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$readid = $_GET['id'];
+$authid = $_GET['auth'];
+$checkid = md5($readid).sha1($readid);
+
+if($checkid != $authid){ //parameter not match with encrypted one
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+if(!isset($_GET['id'])){ //not getting parameter
+    ?><script>window.location.href="index.php"</script><?php
+}
+
+$userid = $_GET['id'];
+$userfetch = fetch(query("select * from user where id = '$userid'"));
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +62,7 @@
                             <?php include "sidepanel.php" ?>
                             <div class="flex-row-fluid ml-lg-8">
                                 <!--begin::Card-->
-                                <div class="card card-custom card-stretch">
+                                <div class="card card-custom card-stretch" style="min-height: 50rem;">
                                     <!--begin::Header-->
                                     <div class="card-header py-3 tw-justify-between tw-flex">
                                         <div class="card-title align-items-start flex-column">

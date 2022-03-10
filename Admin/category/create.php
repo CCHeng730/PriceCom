@@ -23,11 +23,11 @@ if (isset($_POST['submit'])) {
         //password hashing
         $currentDate = date('Y-m-d H:i:s');
 
-        if (isset($_FILES['photo']['name'])) {
+        if ($_FILES['photo']['name'] != '') {
             $imageResponse = uploadFile($_FILES['photo']);
         }
 
-        if ($imageResponse != null) { //no upload file
+        if (isset($_FILES['photo']['name']) && $imageResponse != null) { //no upload file
             if ($imageResponse[1] != 0) { //success upload file
                 //insert record
                 query("insert into category (name,status,image,created_at)
@@ -156,23 +156,4 @@ if (isset($_POST['submit'])) {
             <!--end::Content-->
         </div>
     </body>
-    <script>
-        function create_confirmation()
-        {
-            $("#create_form").submit();
-        }
-        function readURL(input, id) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#imageResultIcon' + id).hide();
-                    $('#imageDefaultImg').hide();
-                    $('#imageResult' + id)
-                        .attr('src', e.target.result);
-                    $('#imageResult' + id).show();
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </html>

@@ -8,6 +8,7 @@ if(!isset($_SESSION['aid'])) { //check if logged in
 $productid = $_GET['id'];
 $productfetch = fetch(query("select * from product where id = '$productid'"));
 $productstorefetch = query("select * from productstore where product_id = '$productid'");
+$total_productstore = mysqli_num_rows($productstorefetch);
 
 // Create Store
 if (isset($_POST['submit'])) {
@@ -31,6 +32,30 @@ if (isset($_POST['submit'])) {
 
         query("insert into productstore (name,price,product_id,created_at)
                 values('$sname','$price','$productid','$currentDate')");
+
+        //redirect back
+        ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
+    }
+}
+// Edit Store
+if(isset($_POST['editsubmit[]'])){
+    $edit_sname = $_POST['edit_sname'];
+    $edit_price = $_POST['edit_price'];
+    $edit_id = $_POST['edit_id'];
+
+    $EditStoreNameUnique = row(query("select * from productstore where name = '$edit_sname' and id != '$edit_id'"));
+    if ($edit_sname == "") {
+        $es_error = "*This field is required";
+    }elseif ($EditStoreNameUnique > 0) {
+        $es_error = "*This store name has already been taken!";
+    }
+    if ($edit_price == "") {
+        $ep_error = "*This field is required";
+    }
+    //if all clear
+    if (!isset($es_error) && !isset($ep_error)) {
+        //update record without image
+        query("update productstore set name='$edit_sname', price='$edit_price' where id='$edit_id'");
 
         //redirect back
         ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
@@ -83,7 +108,7 @@ if (isset($_POST['submit'])) {
                                     <!--begin: Pic-->
                                     <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
                                         <img class="tw-object-contain tw-rounded-xl tw-inset-0 tw-border-4 tw-border-solid tw-border-gray-500 tw-border-opacity-0 tw-border-opacity-60" style="width: 200px; height:150px;" 
-                                            src="<?=($productfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin".$productfetch['image']?>"/>
+                                            src="<?=($productfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "Admin/product/".$productfetch['image']?>"/>
                                     </div>
                                     <!--end: Pic-->
                                     <!--begin: Info-->
@@ -202,7 +227,15 @@ if (isset($_POST['submit'])) {
                                     <!--begin::Body-->
                                     <div class="tw-px-10 tw-mb-5">
                                         <div class="tw-px-10 tw-bg-gray-100 tw-rounded-lg tw-py-2 tw-mb-5">
-                                            <?php while($productstore=fetch($productstorefetch)) { ?>
+                                            <?php 
+                                                if($total_productstore == 0){
+                                            ?>
+                                                <div class="row tw-rounded-lg tw-border-2 tw-border-solid tw-border-gray-300 tw-border-opacity-0 hover:tw-border-opacity-100">
+                                                    <div class="tw-w-full tw-py-5 tw-text-center tw-line-clamp-1">No product Store.</div>
+                                                </div>
+                                            <?php
+                                                }else
+                                                {while($productstore=fetch($productstorefetch)) { ?>
                                                 <div class="row tw-rounded-lg tw-border-2 tw-border-solid tw-border-gray-300 tw-border-opacity-0 hover:tw-border-opacity-100">
                                                     <div class="tw-py-3 col-4 tw-flex">
                                                         <div style="width: 95%" class="tw-line-clamp-1"><?= $productstore['name'] ?></div>
@@ -220,37 +253,42 @@ if (isset($_POST['submit'])) {
                                                     <div class="modal fade" id="addStore_<?=$productstore['id']?>" tabindex="-1" role="dialog" aria-labelledby="addStoreTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <div>
-                                                                    <h5 class="modal-title" id="addStoreTitle">Edit Store</h5>
-                                                                    <div class="d-block text-muted mt-2 font-size-sm">Manage the store for this product</div>
-                                                                </div>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group row">
-                                                                    <label class="col-form-label col-3 tw-mb-2 text-lg-right text-left">Store Name</label>
-                                                                    <div class="col-9 tw-mb-5">
-                                                                        <input class="form-control form-control-lg form-control-solid" value="<?= $productstore['name'] ?>" type="text" name="name" placeholder="Name" />
+                                                                <div class="modal-header">
+                                                                    <div>
+                                                                        <h5 class="modal-title" id="addStoreTitle">Edit Store</h5>
+                                                                        <div class="d-block text-muted mt-2 font-size-sm">Manage the store for this product</div>
                                                                     </div>
-                                                                    <label class="col-form-label col-3 tw-mb-2 text-lg-right text-left">Price</label>
-                                                                    <div class="col-9 tw-mb-2">
-                                                                        <input class="form-control form-control-lg form-control-solid" value="RM <?= $productstore['price'] ?>" type="text" name="name" placeholder="Name" />
-                                                                    </div>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-                                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                                            </div>
+                                                                <form method="post" enctype="multipart/form-data">
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-form-label col-3 tw-mb-2 text-lg-right text-left">Store Name</label>
+                                                                            <div class="col-9 tw-mb-5">
+                                                                                <input class="form-control form-control-lg form-control-solid" value="<?= $productstore['name'] ?>" type="text" name="edit_sname" placeholder="Name" />
+                                                                                <span class="error text-danger"><?= (isset($es_error)) ? $es_error : "" ?></span>
+                                                                            </div>
+                                                                            <label class="col-form-label col-3 tw-mb-2 text-lg-right text-left">Price</label>
+                                                                            <div class="col-9 tw-mb-2">
+                                                                                <input class="form-control form-control-lg form-control-solid" value="RM <?= $productstore['price'] ?>" type="text" name="edit_price" placeholder="Name" />
+                                                                                <span class="error text-danger"><?= (isset($ep_error)) ? $ep_error : "" ?></span>
+                                                                            </div>
+                                                                            <input type="text" value="<?= $productstore['id'] ?>" name="edit_id" hidden>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                                                                        <button type="submit" name="editsubmit[<?= $productstore['id'] ?>]" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!--end::Modal-->
                                                 </div>
-                                            <?php } ?>
+                                            <?php }} ?>
                                         </div>
                                     </div>
                                     <!--end::Body-->

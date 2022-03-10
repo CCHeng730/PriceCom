@@ -199,8 +199,8 @@ if(isset($_POST['submit'])){
                                                 <div class="col-lg-9 col-xl-6">
                                                     <select name="gender" class="form-control form-control-lg form-control-solid">
                                                         <option value="null" selected disabled> -- Choose Your Gender -- </option>
-                                                        <option value="0" <?= ($_POST['gender'] == "0") ?'selected': (($adminfetch['gender'] == "0")?"selected":"")?> >Male</option>
-                                                        <option value="1" <?= ($_POST['gender'] == "1") ?'selected': (($adminfetch['gender'] == "1")?"selected":"")?> >Female</option>
+                                                        <option value="0" <?= ($adminfetch['gender'] == 0)?'selected': (($_POST['gender'] == 0)?'selected':'')?> >Male</option>
+                                                        <option value="1" <?= ($adminfetch['gender'] == 1)?'selected': (($_POST['gender'] == 1)?'selected':'')?> >Female</option>
                                                     </select>
                                                     <span class="error text-danger"><?= (isset($gerror)) ? $gerror : "" ?></span>
                                                 </div>
@@ -246,15 +246,14 @@ if(isset($_POST['submit'])){
                                                 </div>
                                             </div>
                                             <!--end::Group-->
-                                            <!--begin::Group-->
-                                            <div class="form-group row">
-                                                <div class="col text-center">
-                                                    <button type="submit"
-                                                            class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4"
-                                                            name="submit">Edit
-                                                    </button>
-                                                </div>
+                                            <!--begin::Submit Button-->
+                                            <div class="row">
+                                                <label class="col-3"></label>
+                                                <button type="submit" class="btn btn-primary font-weight-bold px-9 py-2 mx-4"
+                                                        name="submit">Edit
+                                                </button>
                                             </div>
+                                            <!--end::Submit Button-->
                                         </div>
                                         <!--end::Body-->
                                     </form>

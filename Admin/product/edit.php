@@ -1,3 +1,69 @@
+<?php
+ob_start();
+include_once("../../connection.php");
+include("../../uploadfile.php");
+
+if(!isset($_SESSION['aid'])) { //check if logged in
+    ?><script>window.location.href="../auth/login.php"</script><?php
+}
+$productid = $_GET['id'];
+$productfetch = fetch(query("select * from product where id = '$productid'"));
+
+if(isset($_POST['submit'])){
+    $pname = $_POST['pname'];
+    $description = $_POST['description'];
+    $category = $_POST['category'];
+
+    $productUnique = row(query("select * from product where email = '$pname' and id != '$productid'"));
+
+    //username validation
+    if ($pname == "") {
+        $perror = "*This field is required";
+    } elseif ($productUnique > 0) {
+        $perror = "*This product name has already been taken!";
+    }
+    //phone no validation
+    if ($description == "") {
+        $derror = "*This field is required";
+    }
+    //email validation
+    if ($category == "") {
+        $cerror = "*This field is required";
+    }
+
+    //if all clear
+    if (!isset($uerror) && !isset($eerror) && !isset($confirmError) && !isset($gerror)) {
+        $currentDate = date('Y-m-d H:i:s');
+
+        if ($_FILES['photo']['name'] != '') {
+            $imageResponse = uploadFile($_FILES['photo']);
+        }else{
+            $imageResponse = null;
+        }
+
+        if ($imageResponse != null) { //upload file
+            if ($imageResponse[1] != 0) { //success upload file
+                //update record
+                query("update product set name='$pname', description='$description', category_id='$category',image='$imageResponse[0]'
+                            where id='$productid'");
+
+                //redirect back
+                ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
+            } else {
+                //return error message
+                $ierror = $imageResponse[0];
+            }
+        } else {
+            //update record without image
+            query("update product set name='$pname', description='$description', category_id='$category'
+                            where id='$productid'");
+
+            //redirect back
+            ?><script>window.location.href = "show.php?id=<?=$productid?>"</script><?php
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,9 +89,6 @@
                         <a href="Admin/product/index.php" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-gray-200 tw-rounded-md tw-text-black hover:tw-text-black tw-font-medium hover:tw-bg-gray-300">
                             Back
                         </a>
-                        <div style="cursor: pointer; color: white;" class="tw-px-5 tw-mx-1 tw-py-3 tw-bg-blue-500 tw-rounded-md tw-font-medium hover:tw-bg-blue-600">
-                            Save Change
-                        </div>
                     </div>
                     <!--end::Toolbar-->
                 </div>
@@ -48,7 +111,7 @@
                                         <div class="row">
                                             <div class="col-xl-2"></div>
                                             <div class="col-xl-7 my-2">
-                                                <div>
+                                                <form method="post"  enctype="multipart/form-data">
                                                     <!--begin::Row-->
                                                     <div class="row">
                                                         <label class="col-3"></label>
@@ -64,13 +127,13 @@
                                                             <div>
                                                                 <div class="image-input image-input-outline" id="kt_user_add_avatar">
                                                                     <img id="imageDefaultImg" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" 
-                                                                        style="width: 140px; height:140px;" src="https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" alt="">
+                                                                        style="width: 140px; height:140px;" src="<?=(isset($productfetch['image']))?'Admin/product/'.$productfetch['image']:"https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S" ?>" alt="">
                                                                     <img id="imageResult1" class="tw-object-cover tw-rounded-md tw-inset-0 tw-border-solid tw-border-2 tw-border-gray-300" src=""
                                                                         style="display:none; width: 140px; height:140px;"
                                                                         value="{{ old('image') }}"> 
                                                                     <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                                                         <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                        <input type="file" name="image" onchange="readURL(this,1);" accept=".png, .jpg, .jpeg" />
+                                                                        <input type="file" name="photo" onchange="readURL(this,1);" accept=".png, .jpg, .jpeg" />
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -81,7 +144,8 @@
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-3 text-lg-right text-left">Name</label>
                                                         <div class="col-9">
-                                                            <input class="form-control form-control-lg form-control-solid" type="text" name="name" placeholder="Name" />
+                                                            <input class="form-control form-control-lg form-control-solid" value="<?= $productfetch['name'] ?>" type="text" name="pname" placeholder="Name" />
+                                                            <span class="error text-danger"><?= (isset($perror)) ? $perror : "" ?></span>
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->
@@ -89,7 +153,8 @@
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-3 text-lg-right text-left">Description</label>
                                                         <div class="col-9">
-                                                            <textarea class="form-control form-control-lg form-control-solid" style="height: 10rem;" type="text" name="description" placeholder="Description...."></textarea>
+                                                            <textarea class="form-control form-control-lg form-control-solid" style="height: 10rem;" type="text" name="description" placeholder="Description...."><?= $productfetch['description'] ?></textarea>
+                                                            <span class="error text-danger"><?= (isset($derror)) ? $derror : "" ?></span>
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->
@@ -98,14 +163,29 @@
                                                         <label class="col-form-label col-3 text-lg-right text-left">Category</label>
                                                         <div class="col-9">
                                                             <select name="category" class="form-control form-control-lg form-control-solid">
-                                                                <option value="null"> -- Choose a category -- </option>
-                                                                <option value="0">category 01</option>
-                                                                <option value="1">category 01</option>
+                                                                <option value="NULL" selected disabled> -- Choose a category -- </option>
+                                                                <?php
+                                                                    $categoryQuery = query("select * from category where deleted_at IS NULL");
+                                                                    while($category=fetch($categoryQuery)) {
+                                                                ?>
+                                                                    <option value="<?=$category['id']?>" <?=  ($productfetch['category_id'] == $category['id'])?'selected': (($_POST['category'] == $category['id'])?'selected':'')?>><?=$category['name']?></option>
+                                                                <?php
+                                                                    }
+                                                                ?>
                                                             </select>
+                                                            <span class="error text-danger"><?= (isset($cerror)) ? $cerror : "" ?></span>
                                                         </div>
                                                     </div>
                                                     <!--end::Group-->
-                                                </div>
+                                                    <!--begin::Submit Button-->
+                                                    <div class="row">
+                                                        <label class="col-3"></label>
+                                                        <button type="submit" class="btn btn-primary font-weight-bold px-9 py-2 mx-4"
+                                                                name="submit">Edit
+                                                        </button>
+                                                    </div>
+                                                    <!--end::Submit Button-->
+                                                </form>
                                             </div>
                                         </div>
                                         <!--end::Row-->
