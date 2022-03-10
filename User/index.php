@@ -7,6 +7,7 @@ if(!isset($_SESSION['uid'])) { //check if logged in
 }
 
 $categoryQuery = query("select * from category where deleted_at IS NULL");
+$productQuery = query("select * from product where deleted_at IS NULL");
 
 ?>
 <!DOCTYPE html>
@@ -15,12 +16,13 @@ $categoryQuery = query("select * from category where deleted_at IS NULL");
         <base href="../">
         <meta charset="utf-8" />
         <title>PriceCom</title>
-        <link href="assets/app.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link rel="stylesheet" type="text/css" href="assets/user/css/font-icons.min.css">
         <link rel="stylesheet" type="text/css" href="assets/user/css/theme-vendors.min.css">
         <link rel="stylesheet" type="text/css" href="assets/user/css/style.css" />
         <link rel="stylesheet" type="text/css" href="assets/user/css/responsive.css" />
+        <link rel="stylesheet" type="text/css" href="assets/app.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
     <body>
@@ -40,37 +42,64 @@ $categoryQuery = query("select * from category where deleted_at IS NULL");
                 </div> 
             </div>
         </div>
-        <div class="tw-w-2/3 tw-mx-auto tw-z-10 tw-mb-10">
-            <div class="tw-relative tw--mt-14 tw-rounded-xl tw-bg-white tw-shadow-xl tw-px-12 tw-py-auto tw-w-full tw-h-auto">
-                <div class="row tw-py-8">
-                    <div class="col-3 tw-py-2">
-                        <div style="font-size: 25px; width: 250px;" class="tw-font-semibold tw-text-black">Categories</div>
-                            <div style="font-size: 15px; width: 250px;" class="tw-mb-3 tw-text-gray-500">Choose the product category</div>
-                            <a href="#" class="tw-w-full tw-no-underline">
-                                <div style="border: 1.5px solid; width:125px;" class="tw-rounded tw-text-center tw-border-gray-700 tw-text-black hover:tw-text-white hover:tw-bg-black hover:tw-border-black tw-bg-white tw-font-semibold tw-py-2">View All</div>
-                            </a>
-                    </div>
-                    <div class="col-9 tw-w-full tw-flex">
-                        <!-- start slider navigation -->
-                        <div class="swiper-button-previous-nav tw-w-12 tw-h-12 tw-text-center tw-border-gray-700 tw-text-black hover:tw-text-white hover:tw-bg-black hover:tw-border-black tw-py-3 tw-my-8 tw-rounded tw-float-left tw-bg-white light" style="border: 1px solid"><i class="fas fa-chevron-left"></i></div>
-                        <div class="swiper-container text-center" style="width: 40rem" data-slider-options='{ "slidesPerView": 1, "navigation": { "nextEl": ".swiper-button-next-nav", "prevEl": ".swiper-button-previous-nav" }, "autoplay": { "delay": 3000, "disableOnInteraction": false }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 4 }, "992": { "slidesPerView": 3 }, "768": { "slidesPerView": 3 } } }'>
-                            <div class="swiper-wrapper">
-                                <?php while($category=fetch($categoryQuery)) { ?>
-                                <!-- start slider item -->
-                                    <div class="swiper-slide tw--pr-4">
-                                        <a href="#" style="text-decoration: none;" class="tw-w-full tw-no-underline">
-                                            <div style="height: 120px; width:120px;" class="tw-rounded-md tw-pt-4 tw-bg-gray-100 hover:tw-shadow-xl">
-                                                <img src="../Admin/category/.<?= $category['image'] ?>" class="tw-rounded-md tw-mx-auto" style="width: 75px; height:75px;" alt="">
-                                                <div class="tw-mt-1 tw-font-semibold tw-text-black tw-line-clamp-2 tw-px-2 tw-text-center" style="font-size: 12px"><?= $category['name'] ?></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                <!-- end slider item -->
-                                <?php } ?>
-                            </div>
+        <div class="tw-py-5 tw-px-0 tw-bg-gray-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 tw-p-2 tw-mx-auto tw-rounded-md">
+                        <div class="row">
+                            <div class="col-12 tw-mb-5 tw-font-black tw-text-center" style="font-size:30px;">Category</div>
+                            <?php while($category=fetch($categoryQuery)) { ?>
+                                <div class="col-2">
+                                    <a href="#" style="text-decoration: none;">
+                                        <div class="tw-py-2 tw-rounded-lg tw-px-1 hover:tw-bg-white hover:tw-shadow-xl" style="height: 10rem;">
+                                            <img style="width: 80px; height: 80px;" class="tw-my-2 tw-mx-auto tw-object-cover tw-rounded-full tw-inset-0" src="<?= 'Admin/category/'.$category['image']?>" alt="">
+                                            <div class="tw-text-center tw-font-semibold tw-uppercase tw-text-black tw-line-clamp-2"><?= $category['name'] ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php } ?>
                         </div>
-                        <div class="swiper-button-next-nav tw-w-12 tw-h-12 tw--ml-5 tw-text-center tw-border-gray-700 tw-text-black hover:tw-bg-black hover:tw-border-black hover:tw-text-white tw-py-3 tw-my-8 tw-rounded tw-float-right tw-bg-white light" style="border: 1px solid "><i class="fas fa-chevron-right"></i></div>
-                        <!-- end slider navigation -->
+                    </div>
+                    <div class="col-9 tw-p-2 tw-mx-auto tw-rounded-md">
+                        <div class="row">
+                            <div class="col-12 tw-font-black tw-text-center" style="font-size:30px;">PRODUCT</div>
+                            <div class="col-12 tw-mb-5 tw-text-gray-500 tw-text-center" style="font-size:16px;">PriceCom compared all the Product in below.</div>
+                            <?php 
+                                while($product=fetch($productQuery)) { 
+                                    $product_id = $product['id'];
+                                    $product_storeQuery = query("select * from productstore where deleted_at IS NULL and product_id = '$product_id'");
+                                    $lowest_priceFetch = fetch(query("select * from productstore where deleted_at IS NULL and product_id = '$product_id' order by price "));
+                                    //$lowest_priceFetch['price'][0]; // output: 8 but the actual lowest price is RM 89.99 
+                                    $total_store = mysqli_num_rows($product_storeQuery);
+                                    if(isset($product_storeQuery)){
+                                        if($total_store > 1){
+                            ?>
+                                        <!-- start slider item -->
+                                        <div class="col-2 tw-mr-10 tw-mb-10">
+                                            <div class="shadow tw-mx-auto" style="width: 16rem;">
+                                                <img src="<?= 'Admin/product/'.$product['image']?>" alt="" style="width: 210px; height: 200px;" class="tw-inset-0 tw-mx-auto tw-object-contain">
+                                                <div class="product-overlay bg-gradient-extra-midium-gray-transparent" style="top:-128px;"></div>
+                                                <div class="tw-absolute" style="left: 79px; top: 80px;"></div>
+                                                <a href="#" class="tw-no-underline tw-w-full">
+                                                    <div class="product_info tw-w-full">
+                                                        <div class="tw-w-full">
+                                                            <div class="font-weight-600 tw-px-3 tw-pt-2 tw-w-full tw-text-black tw-line-clamp-1 tw-no-underline hover:tw-text-blue-500" style="font-size: 20px; cursor: pointer;"><?= $product['name'] ?></div>
+                                                            <div class="tw-w-full tw-px-3 tw-pb-5">
+                                                                <span class="font-weight-600 tw-text-red-500" style="font-size: 20px;">RM <?= $lowest_priceFetch['price'] ?></span>
+                                                            </div>
+                                                            <div class="tw-bg-blue-900 tw-py-2 tw-w-full tw-text-white tw-font-semibold tw-px-4"><?= $total_store ?> Store Compared</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- end slider item -->
+                            <?php       
+                                        }
+                                    }
+                                } 
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
