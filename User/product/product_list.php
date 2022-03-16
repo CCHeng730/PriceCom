@@ -4,10 +4,6 @@ include_once("../../connection.php");
 include_once("../../searchProduct.php");
 
 
-if(!isset($_SESSION['uid'])) { //check if logged in
-    ?><script>window.location.href="auth/login.php"</script><?php
-}
-
 $categoryid = isset($_GET['id']) ? $_GET['id'] : null;
 if($categoryid == "all" || $categoryid ==null){
     $productStr = "select * from product as p join productstore as s on s.product_id = p.id  where p.deleted_at IS NULL";

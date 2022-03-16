@@ -1,8 +1,12 @@
 <header>
 
-    <?php $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"));
-//        header("Cache-Control: no cache");
-//        session_cache_limiter("private_no_expire");
+    <?php
+        if(isset($_SESSION['uid'])){
+            $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"));
+        }else{
+            $Headeruser = null;
+        }
+
     ?>
 
 
@@ -28,12 +32,27 @@
                         <li class="nav-item dropdown megamenu">
                             <a href="User/index.php" class="nav-link">Home</a>
                         </li>
+                        <?php
+                            if(isset($_SESSION['uid'])){
+                        ?>
                         <li class="nav-item dropdown simple-dropdown">
                             <a href="User/profile/profile.php" class="nav-link">Profile</a>
                         </li>
+                        <?php
+                            }else{
+                                ?>
+                                <li class="nav-item dropdown simple-dropdown">
+                                    <a href="User/auth/login.php" class="nav-link text-warning">Login?</a>
+                                </li>
+                                <?php
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
+            <?php
+                if(isset($_SESSION['uid'])){
+            ?>
             <div class="dropdown">
                 <button class="dropdown-toggle tw-mt-2 tw-pt-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="tw-flex">
@@ -54,6 +73,7 @@
                             </div>
                         </a>
                     </li>
+
                     <li class="tw-px-2 tw-w-full">
                         <a href="User/auth/logout.php"  class="tw-no-underline tw-w-full">
                             <div class="tw-px-3 tw-py-3 hover:tw-bg-gray-200 tw-rounded tw-w-full">
@@ -64,6 +84,9 @@
                     </li>
                 </ul>
             </div>
+            <?php
+                }
+                ?>
         </div>
     </nav>
     <!-- end navigation -->

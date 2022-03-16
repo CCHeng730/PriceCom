@@ -2,9 +2,6 @@
 ob_start();
 include_once("../connection.php");
 
-if(!isset($_SESSION['uid'])) { //check if logged in
-    ?><script>window.location.href="auth/login.php"</script><?php
-}
 
 //discard previos string
 unset($_SESSION['searchString']);

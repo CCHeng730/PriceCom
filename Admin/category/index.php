@@ -104,7 +104,8 @@ $total_category = mysqli_num_rows($categoryQuery);
                                                     <td class="tw-text-center">
                                                         <a href="Admin/category/show.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
                                                         <a href="Admin/category/edit.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
-                                                        <a href="Admin/category/delete.php?id=<?=$category['id']?>&auth=<?=md5($category['id']).sha1($category['id'])?>" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                                                        <a onclick="triggerSweet(<?=$category['id']?>,'<?=md5($category['id']).sha1($category['id'])?>')" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold text-white" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+
                                                     </td>
                                                 </tr>
                                             <?php
@@ -139,5 +140,36 @@ $total_category = mysqli_num_rows($categoryQuery);
         $('#category_search').keyup(function() {
             dTable.search($(this).val()).draw();
         })
+
+        function triggerSweet(catid,authid) {
+            Swal.fire({
+                title: 'Delete this category?',
+                text: "All products related to the category will be removed too!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Records has been deleted.',
+                        'success'
+                    ).then( function(){
+                        window.location.href = "Admin/category/delete.php?id="+catid+"&auth="+authid
+                    })
+
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire(
+                        'Cancelled',
+                        'Records are safe :)',
+                        'error'
+                    )
+                }
+            });
+        }
     </script>
 </html>
