@@ -6,6 +6,10 @@ if(!isset($_SESSION['uid'])) { //check if logged in
     ?><script>window.location.href="auth/login.php"</script><?php
 }
 
+//discard previos string
+unset($_SESSION['searchString']);
+unset($_SESSION['searchKeyword']);
+
 $categoryQuery = query("select * from category where deleted_at IS NULL");
 $productQuery = query("select * from product where deleted_at IS NULL");
 
@@ -73,7 +77,7 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                                     $purchaseQuery = query("select * from purchase_history where product_id = '$product_id'");
                                     $total_product_sold = mysqli_num_rows($purchaseQuery);
                                     if(isset($product_storeQuery)){
-                                        if($total_store > 1){
+                                        if($total_store >= 1){
                                             $ratingQuery = query("select * from feedback where product_id = '$product_id'");
                                             $ratingFetch = fetch(query("select sum(rate) as total from feedback where product_id = '$product_id'"));
                                             $rating_sum = $ratingFetch['total'];

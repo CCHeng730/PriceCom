@@ -1,5 +1,10 @@
 <header>
-    <?php $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"))?>
+
+    <?php $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"));
+//        header("Cache-Control: no cache");
+//        session_cache_limiter("private_no_expire");
+    ?>
+
 
     <!-- start navigation -->
     <nav class="navbar top-space navbar-expand-lg navbar-light bg-white header-light fixed-top header-reverse-scroll">
@@ -10,12 +15,12 @@
                 </a>
             </div>
             <div class="col-6 mr-auto pl-lg-0">
-                <div class="tw-flex tw-my-3 tw-py-2 tw-px-2 tw-rounded-full tw-h-16 tw-bg-gray-200 tw-border-gray-700">
-                    <input class="tw-h-12 tw-rounded-full tw-w-full tw-px-5" type="text" name="searchData" placeholder="Search product in PriceCom...">
-                    <button class="tw-ml-2 tw-bg-white hover:tw-bg-gray-600 tw-rounded-full tw-w-14 tw-px-1 tw-text-black hover:tw-text-white">
-                        <i style="font-size: 25px" class="tw-py-2 fas fa-search"></i>
+                <form class="form tw-flex tw-my-3 tw-py-2 tw-px-2 tw-rounded-full tw-h-16 tw-bg-gray-200 tw-border-gray-700" method="post" action="User/product/product_list.php">
+                    <input class="tw-h-12 tw-rounded-full tw-w-full tw-px-5" type="search" name="searchData"  placeholder="Search product in PriceCom...">
+                    <button type="submit" name="searchSubmit" class="tw-ml-2 tw-bg-white hover:tw-bg-gray-600 tw-rounded-full tw-w-14 tw-px-1 tw-text-black hover:tw-text-white">
+                        <i style="font-size: 25px" class="tw-py-2 fa fa-search"></i>
                     </button>
-                </div>
+                </form>
             </div>
             <div class="col-2 menu-order px-lg-0">
                 <div class="collapse navbar-collapse" id="navbarNav">
