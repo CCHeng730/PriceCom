@@ -30,7 +30,7 @@ CREATE TABLE `Product` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `category_id` int NOT NULL,
   `name` text NOT NULL,
-  `description` text NOT NULL,
+  `description` longtext NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` datetime,
   `deleted_at` datetime NULL
@@ -63,6 +63,16 @@ CREATE TABLE `Purchase_history` (
   `product_price` double NOT NULL,
   `shipping_fee` double NOT NULL,
   `total` double NOT NULL,
+  `created_at` datetime
+);
+
+CREATE TABLE `Feedback` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `product_store_id` int NOT NULL,
+  `rate` int NOT NULL,
+  `comment` longtext NULL,
   `created_at` datetime
 );
 

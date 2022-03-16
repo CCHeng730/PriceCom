@@ -19,8 +19,8 @@
                                 <?=($userfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "User/profile/".$userfetch['image']?>)"></div>
                             </div>
                         <div>
-                            <div class="font-weight-bolder font-size-h5 text-dark-75">NAME</div>
-                            <div class="text-muted">Gender</div>
+                            <div class="font-weight-bolder font-size-h5 text-dark-75"><?=$userfetch['username']?></div>
+                            <div class="text-muted"><?=($userfetch['gender'] == 0)? 'male': 'female'?></div>
                         </div>
                     </div>
                     <!--end::User-->

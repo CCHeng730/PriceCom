@@ -14,7 +14,7 @@ if(isset($_POST['submit'])){
     $description = $_POST['description'];
     $category = $_POST['category'];
 
-    $productUnique = row(query("select * from product where email = '$pname' and id != '$productid'"));
+    $productUnique = row(query("select * from product where name = '$pname' and id != '$productid'"));
 
     //username validation
     if ($pname == "") {

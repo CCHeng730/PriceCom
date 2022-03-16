@@ -13,6 +13,9 @@ $total_productstore = mysqli_num_rows($productstorefetch);
 $purchasehistoryQuery = query("select * from purchase_history where product_id = '$productid'");
 $total_sales = fetch(query("select sum(product_price) as total from purchase_history where product_id = '$productid'"));
 $total_sold = mysqli_num_rows($purchasehistoryQuery);
+// Review
+$feedbackQuery = query("select * from feedback where product_id = '$productid'");
+$total_feedback = mysqli_num_rows($feedbackQuery);
 
 // Create Store
 if (isset($_POST['submit'])) {
@@ -352,6 +355,73 @@ foreach($store_fetchall as $p_store)
                                     <!--end::Body-->
                                 </div>
                                 <!--end::Charts Widget 3-->
+                            </div>
+                        </div>
+                        <!--end::Row-->
+                        <!--start::Row-->
+                        <div class="row">
+                            <div class="col-12">
+                            <div class="card card-custom card-stretch gutter-b">
+                                <!--begin::Header-->
+                                <div class="card-header h-auto border-0">
+                                    <div class="card-title py-5">
+                                        <h3 class="card-label">
+                                            <span class="d-block text-dark font-weight-bolder">Review & Comment</span>
+                                            <span class="d-block text-muted mt-2 font-size-sm">View the product's comment by rating</span>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <div class="tw-w-full">
+                                        <?php if($total_feedback == 0){ ?>
+                                            <div class="tw-w-full tw-text-center">No review in this product rating.</div>
+                                        <?php
+                                            }else{
+                                            while($feedback=fetch($feedbackQuery)) {
+                                                // Fetch User
+                                                $userid = $feedback['user_id'];
+                                                $userfetch = fetch(query("select * from user where id = '$userid'"));
+                                                // Fetch Product Store
+                                                $product_storeid = $feedback['product_store_id'];
+                                                $product_storefetch = fetch(query("select * from productstore where id = '$product_storeid'"));
+                                        ?>
+                                            <div class="tw-mb-5 tw-bg-blue-50 tw-rounded-lg tw-flex tw-w-full">
+                                                <div style="width: 8%" class="tw-pt-5">
+                                                    <img src="<?=($userfetch['image'] == null)? 'https://shacknews-ugc.s3.us-east-2.amazonaws.com/user/9647/article-inline/2021-03/template.jpg?versionId=EPuOpjX7pGmrwxIxaF8BBrMfaK4X7f.S': "User/profile/".$userfetch['image']?>" style="width: 50px; height:50px;" class="tw-object-cover tw-mx-auto tw-inset-0 tw-rounded-lg" alt="">
+                                                </div>
+                                                <div style="width: 90%;" class="tw-py-4">
+                                                    <div class="tw-flex tw-justify-between tw-mb-2">
+                                                        <div>
+                                                            <div style="font-size: 17px" class="tw-font-semibold tw-mr-3"><?= $userfetch['name'] ?></div>
+                                                            <div class="tw-line-clamp-1">Store : <?= $product_storefetch['name'] ?></div>
+                                                        </div>
+                                                        <div class="tw-flex">
+                                                            <div class="tw-mr-3">
+                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 1)?'fas':'far'?> fa-star tw-text-yellow-400"></i>
+                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 2)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 3)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 4)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 5)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                            </div>
+                                                            <div><?= date('d-m-Y', strtotime($feedback['created_at'])) ?></div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <?php if($feedback['comment'] == null){ ?>
+                                                            No comment in this feedback.
+                                                        <?php }else{ ?>
+                                                            <?= $feedback['comment'] ?>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php }} ?>
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </div>
                             </div>
                         </div>
                         <!--end::Row-->

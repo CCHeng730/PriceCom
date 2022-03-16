@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
 
             //redirect to homepage
             ?>
-            <script>window.location.href = "../profile/profile.php"</script><?php
+            <script>window.location.href = "../index.php"</script><?php
 
         }else{
             ?><script>alert('Account suspended, kindly contact administrator');</script><?php

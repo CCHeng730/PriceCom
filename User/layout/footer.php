@@ -13,8 +13,8 @@
                 <div class="col-2 order-sm-3 order-lg-0">
                     <span class="alt-font font-weight-500 d-block text-white tw-mb-3">Application</span>
                     <ul>
-                        <li><a href="about-us.html">Homepage</a></li>
-                        <li><a href="our-services.html">Product list</a></li>
+                        <li><a href="User/index.php">Homepage</a></li>
+                        <li><a href="User/product/product_list.php?id=all">Product list</a></li>
                     </ul>
                 </div>
                 <!-- end footer column -->
@@ -22,10 +22,10 @@
                 <div class="col-2 order-sm-3 order-lg-0">
                     <span class="alt-font font-weight-500 d-block text-white tw-mb-3">Profile</span>
                     <ul>
-                        <li><a href="#">Profile detail</a></li>
-                        <li><a href="#">Edit Profile</a></li>
-                        <li><a href="#">Change Password</a></li>
-                        <li><a href="#">Purchase history</a></li>
+                        <li><a href="User/profile/profile.php">Profile detail</a></li>
+                        <li><a href="User/profile/edit_profile.php">Edit Profile</a></li>
+                        <li><a href="User/profile/change_password.php">Change Password</a></li>
+                        <li><a href="User/profile/purchase_history.php">Purchase history</a></li>
                     </ul>
                 </div>
                 <!-- end footer column -->

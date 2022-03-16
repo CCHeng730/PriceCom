@@ -95,6 +95,7 @@ $currentuser_id = $_SESSION['uid'];
                                             <div class="tw-font-medium">RM <?= $purchase_history['total']?></div>
                                         </td>
                                         <td class="tw-py-3">
+                                            
                                             <a href="User/product/product_detail.php?id=<?= $current_product_id?>" class="tw-font-semibold tw-rounded tw-px-6 tw-py-3 tw-text-white tw-bg-gray-700 hover:tw-text-white tw-bg-gradient-to-b hover:tw-from-black hover:tw-to-gray-500 tw-no-underline">View Product</a>
                                         </td>
                                     </tr>

@@ -35,7 +35,7 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                             <div class="col-12 col-xl-6 col-sm-7 d-flex flex-column justify-content-center text-center">
                                 <span class="alt-font font-weight-500 text-extra-medium letter-spacing-2px text-white text-uppercase d-block margin-40px-bottom"></span>
                                 <h1 style="font-size: 60px" class="alt-font letter-spacing-2px font-weight-800 text-white text-uppercase text-shadow-large margin-35px-bottom xs-w-90 mx-auto">WELCOME TO <br>PRICECOM</h1>
-                                <!-- <a href="#" class="btn btn-fancy btn-large btn-dark-gray btn-box-shadow align-self-center">View All Product</a> -->
+                                <a href="User/product/product_list.php?id=all" class="btn btn-fancy btn-large btn-dark-gray btn-box-shadow align-self-center">View All Product</a>
                             </div>
                         </div>
                     </div>
@@ -50,10 +50,12 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                             <div class="col-12 tw-mb-5 tw-font-black tw-text-center" style="font-size:30px;">CATEGORY</div>
                             <?php while($category=fetch($categoryQuery)) { ?>
                                 <div class="col-2">
-                                    <div class="tw-py-2 tw-rounded-lg tw-px-1" style="height: 10rem;">
-                                        <img style="width: 80px; height: 80px;" class="tw-my-2 tw-mx-auto tw-object-cover tw-rounded-full tw-inset-0" src="<?= 'Admin/category/'.$category['image']?>" alt="">
-                                        <div class="tw-text-center tw-font-semibold tw-uppercase tw-text-black tw-line-clamp-2"><?= $category['name'] ?></div>
-                                    </div>
+                                    <a href="User/product/product_list.php?id=<?=$category['id']?>">
+                                        <div class="tw-py-2 tw-rounded-lg tw-px-1" style="height: 10rem;">
+                                            <img style="width: 80px; height: 80px;" class="tw-my-2 tw-mx-auto tw-object-cover tw-rounded-full tw-inset-0" src="<?= 'Admin/category/'.$category['image']?>" alt="">
+                                            <div class="tw-text-center tw-font-semibold tw-uppercase tw-text-black tw-line-clamp-2"><?= $category['name'] ?></div>
+                                        </div>
+                                    </a>
                                 </div>
                             <?php } ?>
                         </div>

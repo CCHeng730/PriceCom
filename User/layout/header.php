@@ -4,18 +4,20 @@
     <!-- start navigation -->
     <nav class="navbar top-space navbar-expand-lg navbar-light bg-white header-light fixed-top header-reverse-scroll">
         <div class="container-lg nav-header-container">
-            <div class="col-auto col-sm-6 col-lg-2 mr-auto pl-lg-0">
+            <div class="col-2 mr-auto pl-lg-0">
                 <a class="navbar-brand" href="User/index.php">
                     <div style="font-size:35px; text-shadow: #FC0 1px 0 10px;" class="tw-font-bold tw-italic tw-text-black">PriceCom</div>
                 </a>
             </div>
-            <div class="col-auto menu-order px-lg-0">
-                <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-line"></span>
-                    <span class="navbar-toggler-line"></span>
-                    <span class="navbar-toggler-line"></span>
-                    <span class="navbar-toggler-line"></span>
-                </button>
+            <div class="col-6 mr-auto pl-lg-0">
+                <div class="tw-flex tw-my-3 tw-py-2 tw-px-2 tw-rounded-full tw-h-16 tw-bg-gray-200 tw-border-gray-700">
+                    <input class="tw-h-12 tw-rounded-full tw-w-full tw-px-5" type="text" name="searchData" placeholder="Search product in PriceCom...">
+                    <button class="tw-ml-2 tw-bg-white hover:tw-bg-gray-600 tw-rounded-full tw-w-14 tw-px-1 tw-text-black hover:tw-text-white">
+                        <i style="font-size: 25px" class="tw-py-2 fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-2 menu-order px-lg-0">
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav alt-font">
                         <li class="nav-item dropdown megamenu">
