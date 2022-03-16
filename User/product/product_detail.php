@@ -25,8 +25,8 @@ $feedbackQuery = query("select * from feedback where product_id = '$productid'")
 $total_feedback = row($feedbackQuery);
 
 //Product Rating
-$ratingQuery = query("select sum(rate) as total from feedback where product_id = '$productid'");
-$ratingFetch = fetch($ratingQuery);
+$ratingQuery = query("select * from feedback where product_id = '$productid'");
+$ratingFetch = fetch(query("select sum(rate) as total from feedback where product_id = '$productid'"));
 $rating_sum = $ratingFetch['total'];
 if($rating_sum != null){
     $total_rating = row($ratingQuery);

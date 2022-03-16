@@ -71,6 +71,7 @@ CREATE TABLE `Feedback` (
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
   `product_store_id` int NOT NULL,
+  `order_id` int NOT NULL,
   `rate` int NOT NULL,
   `comment` longtext NULL,
   `created_at` datetime

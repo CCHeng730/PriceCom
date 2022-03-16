@@ -74,9 +74,18 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                                     $total_product_sold = mysqli_num_rows($purchaseQuery);
                                     if(isset($product_storeQuery)){
                                         if($total_store > 1){
+                                            $ratingQuery = query("select * from feedback where product_id = '$product_id'");
+                                            $ratingFetch = fetch(query("select sum(rate) as total from feedback where product_id = '$product_id'"));
+                                            $rating_sum = $ratingFetch['total'];
+                                            $total_rating = row($ratingQuery);
+                                            if($rating_sum != null){
+                                                $Product_Rate = $rating_sum/$total_rating;
+                                            }else{
+                                                $Product_Rate = 0;
+                                            }
                             ?>
                                         <!-- start slider item -->
-                                        <div class="col-2 tw-mr-10 tw-mb-10">
+                                        <div class="col-3 tw-mb-10">
                                             <div class="shadow tw-mx-auto" style="width: 16rem;">
                                                 <img src="<?= 'Admin/product/'.$product['image']?>" alt="" style="width: 210px; height: 200px;" class="tw-inset-0 tw-mx-auto tw-object-contain">
                                                 <div class="product-overlay bg-gradient-extra-midium-gray-transparent" style="top:-128px;"></div>
@@ -88,8 +97,18 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                                                             <div class="tw-w-full tw-px-3 tw-pb-5">
                                                                 <span class="font-weight-600 tw-text-red-500" style="font-size: 20px;">RM <?= $lowest_priceFetch['price'] ?></span>
                                                             </div>
-                                                            <div class="tw-w-full tw-text-right tw-px-3 tw-pb-2">
-                                                                <span class="font-weight-600 tw-text-gray-500" style="font-size: 18px;"><?= $total_product_sold ?> sold</span>
+                                                            <div class="tw-w-full tw-flex tw-justify-between tw-px-3 tw-pb-2">
+                                                                <ul class="list-style-07 p-0 mt-10" style="width: 70%;">
+                                                                    <li class="pt-2">
+                                                                        <i style="font-size: 16px;" class="<?=($Product_Rate >= 1)?'fas':'far'?> tw-font-semibold fa-star icon-very-small text-golden-yellow"></i>
+                                                                        <i style="font-size: 16px;" class="<?=($Product_Rate >= 2)?'fas':'far'?> tw-font-semibold fa-star icon-very-small text-golden-yellow"></i>
+                                                                        <i style="font-size: 16px;" class="<?=($Product_Rate >= 3)?'fas':'far'?> tw-font-semibold fa-star icon-very-small text-golden-yellow"></i>
+                                                                        <i style="font-size: 16px;" class="<?=($Product_Rate >= 4)?'fas':'far'?> tw-font-semibold fa-star icon-very-small text-golden-yellow"></i>
+                                                                        <i style="font-size: 16px;" class="<?=($Product_Rate >= 5)?'fas':'far'?> tw-font-semibold fa-star icon-very-small text-golden-yellow"></i>
+                                                                        <span style="font-size: 16px;" class="tw-font-semibold tw-text-black">(<?= $total_rating ?>)</span>
+                                                                    </li>
+                                                                </ul>
+                                                                <span class="font-weight-600 tw-text-right tw-text-gray-500" style="font-size: 18px;"><?= $total_product_sold ?> sold</span>
                                                             </div>
                                                             <div class="tw-bg-blue-900 tw-py-2 tw-w-full tw-text-white tw-font-semibold tw-px-4"><?= $total_store ?> Store Compared</div>
                                                         </div>

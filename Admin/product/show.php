@@ -394,16 +394,16 @@ foreach($store_fetchall as $p_store)
                                                 <div style="width: 90%;" class="tw-py-4">
                                                     <div class="tw-flex tw-justify-between tw-mb-2">
                                                         <div>
-                                                            <div style="font-size: 17px" class="tw-font-semibold tw-mr-3"><?= $userfetch['name'] ?></div>
+                                                            <div style="font-size: 17px" class="tw-font-semibold tw-mr-3"><?= $userfetch['username'] ?></div>
                                                             <div class="tw-line-clamp-1">Store : <?= $product_storefetch['name'] ?></div>
                                                         </div>
                                                         <div class="tw-flex">
                                                             <div class="tw-mr-3">
-                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 1)?'fas':'far'?> fa-star tw-text-yellow-400"></i>
-                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 2)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
-                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 3)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
-                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 4)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
-                                                                <i style="font-size: 10px;" class="<?=($feedback['rate'] >= 5)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 13px;" class="<?=($feedback['rate'] >= 1)?'fas':'far'?> fa-star tw-text-yellow-400"></i>
+                                                                <i style="font-size: 13px;" class="<?=($feedback['rate'] >= 2)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 13px;" class="<?=($feedback['rate'] >= 3)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 13px;" class="<?=($feedback['rate'] >= 4)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
+                                                                <i style="font-size: 13px;" class="<?=($feedback['rate'] >= 5)?'fas':'far'?> fa-star tw-text-yellow-400 tw--ml-1"></i>
                                                             </div>
                                                             <div><?= date('d-m-Y', strtotime($feedback['created_at'])) ?></div>
                                                         </div>
