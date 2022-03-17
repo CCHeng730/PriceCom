@@ -50,7 +50,7 @@ $productQuery = query("select * from product where deleted_at IS NULL");
                             <div class="col-12 tw-mb-5 tw-font-black tw-text-center" style="font-size:30px;">CATEGORY</div>
                             <?php while($category=fetch($categoryQuery)) { ?>
                                 <div class="col-2">
-                                    <a href="User/product/product_list.php?id=<?=$category['id']?>">
+                                    <a href="User/product/product_list.php?id=<?=$category['id']?>" class="tw-no-underline">
                                         <div class="tw-py-2 tw-rounded-lg tw-px-1" style="height: 10rem;">
                                             <img style="width: 80px; height: 80px;" class="tw-my-2 tw-mx-auto tw-object-cover tw-rounded-full tw-inset-0" src="<?= 'Admin/category/'.$category['image']?>" alt="">
                                             <div class="tw-text-center tw-font-semibold tw-uppercase tw-text-black tw-line-clamp-2"><?= $category['name'] ?></div>
