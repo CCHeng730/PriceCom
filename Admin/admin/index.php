@@ -58,9 +58,15 @@ $currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]'
                     </div>
                 </div>
                 <div class="btn-group ml-2">
+                    <?php
+                    if($_SESSION['super'] == 1 ){
+                    ?>
                     <a href="Admin/admin/create.php" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
                         New Admin
                     </a>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <!--end::Toolbar-->
             </div>

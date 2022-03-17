@@ -6,6 +6,8 @@ include ("../../uploadfile.php");
 if (!isset($_SESSION['aid'])) { //check if logged in
     ?>
     <script>window.location.href = "../auth/login.php"</script><?php
+}elseif($_SESSION['super'] != 1 ){
+    ?><script>window.location.href = "index.php"</script><?php
 }
 
 if (isset($_POST['submit'])) {
