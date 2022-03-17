@@ -1,14 +1,56 @@
 <?php
 ob_start();
 include_once("../../connection.php");
+include_once("../../searchProduct.php");
 
-$categoryid = $_GET['id'];
-if($categoryid == "all"){
-    $productQuery = query("select * from product where deleted_at IS NULL");
+
+$categoryid = isset($_GET['id']) ? $_GET['id'] : null;
+if($categoryid == "all" || $categoryid ==null){
+    $productStr = "select * from product as p join productstore as s on s.product_id = p.id  where p.deleted_at IS NULL";
 }else{
     $categoryFetch = fetch(query("select * from category where deleted_at IS NULL and id = '$categoryid' "));
-    $productQuery = query("select * from product where deleted_at IS NULL and category_id = '$categoryid' ");
+    $productStr = "select * from product as p join productstore as s on s.product_id = p.id  where p.deleted_at IS NULL and p.category_id = '$categoryid' ";
 }
+
+if(isset($_POST['searchSubmit'])){
+    //discard previos string
+    unset($_SESSION['searchString']);
+    unset($_SESSION['searchKeyword']);
+
+    $searchedStr = searchedData($_POST['searchData']);
+
+    if($searchedStr != ''){
+        $productStr = $searchedStr;
+
+        //if searched, add string to session for later change apply
+        $_SESSION['searchString'] = $productStr;
+
+    }else{
+        //search no result
+        ?><script>alert('No product found!');window.location.href="../index.php"</script><?php
+
+    }
+}
+
+if(isset($_POST['rangeSubmit'])){
+    $max = $_POST['max'];
+    $min = $_POST['min'];
+
+    if($max > $min) {
+        if(isset($_SESSION['searchString'])){
+            $productStr = $_SESSION['searchString'];
+        }
+
+    }else{
+        $rangeErr = "*Please enter valid range!";
+    }
+
+    $rangeString = " and s.price between $min and $max";
+    $productStr .= $rangeString;
+}
+
+$productQuery = query($productStr);
+
 $categoryQuery = query("select * from category where deleted_at IS NULL");
 $total_all_product = row($productQuery);
 ?>
@@ -43,7 +85,7 @@ $total_all_product = row($productQuery);
                                     </li>
                                     <li class="tw-flex">
                                         <i style="margin-top: 5px; font-size: 20px" class="fa fa-angle-right tw-text-white ml-2 mr-2" aria-hidden="true"></i>
-                                        <div style="font-size: 20px" class="font-weight-600 tw-text-gray-300 tw-no-underline"><?= ($categoryid != "all")? $categoryFetch['name'] : "Product list" ?></div>
+                                        <div style="font-size: 20px" class="font-weight-600 tw-text-gray-300 tw-no-underline"><?= ($categoryid == "all")? "Product list": (!isset($_SESSION['searchKeyword']))?$categoryFetch['name']: '"'.$_SESSION['searchKeyword'].'"'  ?></div>
                                     </li>
                                 </ul>
                             </div>
@@ -88,6 +130,38 @@ $total_all_product = row($productQuery);
                                     <?php } ?>
                                 </ul>
                             </div>
+                            <div class="border-bottom border-color-medium-gray padding-3-rem-bottom margin-3-rem-bottom wow animate__fadeIn" style="visibility: visible; animation-name: fadeIn;">
+                                <form method="post">
+                                    <span class="shop-title alt-font font-weight-600 text-extra-dark-gray d-block margin-20px-bottom">Filter by price</span>
+                                    <span class="error text-danger d-block"><?= (isset($rangeErr)) ? $rangeErr : "" ?></span>
+
+                                    Minimum (RM)
+                                    <input type="range" class="form-range" id="minRange" min="0" max="9999.99" step="10.00" value="<?= $_POST['min'] ?? 0 ?>" onChange="document.getElementById('min').value = parseInt(document.getElementById('minRange').value).toFixed(2)">
+                                    Maximum (RM)
+                                    <input type="range" class="form-range" id="maxRange" min="0" max="9999.99" step="10.00" value="<?= $_POST['max'] ?? 9999.99 ?>" onChange="document.getElementById('max').value = parseInt(document.getElementById('maxRange').value).toFixed(2)">
+
+                                    <div class="row mt-4">
+                                        <div class="col-md-4 bg-light">
+                                            <div class="form-group">
+                                                <input type="number" class="border-0" id="min" value="<?= $_POST['min'] ?? 0.00 ?>" name="min" step="0.01" onChange="document.getElementById('minRange').value = document.getElementById('min').value">
+                                            </div>
+                                        </div>
+                                        -
+                                        <div class="col-md-4 bg-light">
+                                            <div class="form-group">
+                                                <input type="number" class="border-0" id="max" value="<?= $_POST['max'] ?? 9999.99 ?>" name="max" step="0.01" onChange="document.getElementById('maxRange').value = document.getElementById('max').value">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6"></div>
+                                        <div class="col-md-6 bg-light text-right">
+                                            <button class="btn btn-success" type="submit" name="rangeSubmit">Apply Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="col-8 tw-mb-10">
@@ -101,7 +175,7 @@ $total_all_product = row($productQuery);
                                     $purchaseQuery = query("select * from purchase_history where product_id = '$product_id'");
                                     $total_product_sold = mysqli_num_rows($purchaseQuery);
                                     if(isset($product_storeQuery)){
-                                        if($total_store > 1){
+                                        if($total_store >= 1){
                                             $ratingQuery = query("select * from feedback where product_id = '$product_id'");
                                             $ratingFetch = fetch(query("select sum(rate) as total from feedback where product_id = '$product_id'"));
                                             $rating_sum = $ratingFetch['total'];

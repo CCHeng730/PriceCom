@@ -2,9 +2,6 @@
 ob_start();
 include_once("../../connection.php");
 
-if(!isset($_SESSION['uid'])) { //check if logged in
-    ?><script>window.location.href="../auth/login.php"</script><?php
-}
 //Product information
 $productid = $_GET['id'];
 $productQuery = fetch(query("select * from product where deleted_at IS NULL and id = '$productid' "));

@@ -3,7 +3,7 @@ ob_start();
 include_once("../../connection.php");
 
 if(!isset($_SESSION['uid'])) { //check if logged in
-    ?><script>window.location.href="../auth/login.php"</script><?php
+    ?><script>alert('Please login to place order!');window.location.href="../auth/login.php"</script><?php
 }
 $currentuser_id = $_SESSION['uid'];
 

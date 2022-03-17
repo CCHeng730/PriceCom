@@ -1,5 +1,14 @@
 <header>
-    <?php $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"))?>
+
+    <?php
+        if(isset($_SESSION['uid'])){
+            $Headeruser = fetch(query("select * from user where id = '$_SESSION[uid]'"));
+        }else{
+            $Headeruser = null;
+        }
+
+    ?>
+
 
     <!-- start navigation -->
     <nav class="navbar top-space navbar-expand-lg navbar-light bg-white header-light fixed-top header-reverse-scroll">
@@ -10,12 +19,12 @@
                 </a>
             </div>
             <div class="col-6 mr-auto pl-lg-0">
-                <div class="tw-flex tw-my-3 tw-py-2 tw-px-2 tw-rounded-full tw-h-16 tw-bg-gray-200 tw-border-gray-700">
-                    <input class="tw-h-12 tw-rounded-full tw-w-full tw-px-5" type="text" name="searchData" placeholder="Search product in PriceCom...">
-                    <button class="tw-ml-2 tw-bg-white hover:tw-bg-gray-600 tw-rounded-full tw-w-14 tw-px-1 tw-text-black hover:tw-text-white">
-                        <i style="font-size: 25px" class="tw-py-2 fas fa-search"></i>
+                <form class="form tw-flex tw-my-3 tw-py-2 tw-px-2 tw-rounded-full tw-h-16 tw-bg-gray-200 tw-border-gray-700" method="post" action="User/product/product_list.php">
+                    <input class="tw-h-12 tw-rounded-full tw-w-full tw-px-5" type="search" name="searchData"  placeholder="Search product in PriceCom...">
+                    <button type="submit" name="searchSubmit" class="tw-ml-2 tw-bg-white hover:tw-bg-gray-600 tw-rounded-full tw-w-14 tw-px-1 tw-text-black hover:tw-text-white">
+                        <i style="font-size: 25px" class="tw-py-2 fa fa-search"></i>
                     </button>
-                </div>
+                </form>
             </div>
             <div class="col-2 menu-order px-lg-0">
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -23,12 +32,27 @@
                         <li class="nav-item dropdown megamenu">
                             <a href="User/index.php" class="nav-link">Home</a>
                         </li>
+                        <?php
+                            if(isset($_SESSION['uid'])){
+                        ?>
                         <li class="nav-item dropdown simple-dropdown">
                             <a href="User/profile/profile.php" class="nav-link">Profile</a>
                         </li>
+                        <?php
+                            }else{
+                                ?>
+                                <li class="nav-item dropdown simple-dropdown">
+                                    <a href="User/auth/login.php" class="nav-link text-warning">Login?</a>
+                                </li>
+                                <?php
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
+            <?php
+                if(isset($_SESSION['uid'])){
+            ?>
             <div class="dropdown">
                 <button class="dropdown-toggle tw-mt-2 tw-pt-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="tw-flex">
@@ -49,6 +73,7 @@
                             </div>
                         </a>
                     </li>
+
                     <li class="tw-px-2 tw-w-full">
                         <a href="User/auth/logout.php"  class="tw-no-underline tw-w-full">
                             <div class="tw-px-3 tw-py-3 hover:tw-bg-gray-200 tw-rounded tw-w-full">
@@ -59,6 +84,9 @@
                     </li>
                 </ul>
             </div>
+            <?php
+                }
+                ?>
         </div>
     </nav>
     <!-- end navigation -->

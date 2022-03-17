@@ -106,9 +106,13 @@ $total_product = mysqli_num_rows($productQuery);
                                                             ?>
                                                         </span>
                                                     </td>
-                                                    <td class="tw-text-center">
-                                                        <a href="Admin/product/show.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
-                                                        <a href="Admin/product/edit.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                    <td class="row text-center">
+                                                        <div class="btn-group">
+
+                                                            <a href="Admin/product/show.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" style="background-color: rgb(54,153,255);" class="tw-text-white tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">View</a>
+                                                            <a href="Admin/product/edit.php?id=<?=$product['id']?>&auth=<?=md5($product['id']).sha1($product['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-mx-2 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
+                                                            <a onclick="triggerSweet(<?=$product['id']?>,'<?=md5($product['id']).sha1($product['id'])?>')" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold text-white">Delete</a>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             <?php
@@ -143,5 +147,36 @@ $total_product = mysqli_num_rows($productQuery);
         $('#product_search').keyup(function() {
             dTable.search($(this).val()).draw();
         })
+
+        function triggerSweet(prodid,authid) {
+            Swal.fire({
+                title: 'Delete this product?',
+                text: "All stores related to the product will be removed too!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Records has been deleted.',
+                        'success'
+                    ).then( function(){
+                        window.location.href = "Admin/product/delete.php?id="+prodid+"&auth="+authid
+                    })
+
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire(
+                        'Cancelled',
+                        'Records are safe :)',
+                        'error'
+                    )
+                }
+            });
+        }
     </script>
 </html>

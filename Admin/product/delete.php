@@ -12,8 +12,8 @@ if(!isset($_SESSION['aid'])) { //check if logged in
 
 //query delete record
 $currentDate = date('Y-m-d H:i:s');
-query("update category set deleted_at = '$currentDate' where id = '$readid'");
-query("update product set deleted_at = '$currentDate' where category_id = '$readid'");
+query("update product set deleted_at = '$currentDate' where id = '$readid'");
+query("update productstore set deleted_at = '$currentDate' where product_id = '$readid'");
 
 
 ?>
