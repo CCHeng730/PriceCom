@@ -15,7 +15,14 @@ if($_SESSION['super'] != '1'){ // not is SUPER ADMIN
 }else{
     //query delete record
     $currentDate = date('Y-m-d H:i:s');
-    query("update admin set deleted_at = '$currentDate' where id = '$readid'");
+
+    $adminF = fetch(query("select * from admin where id = '$readid'"));
+
+    if($adminF['deleted_at'] == null){
+        query("update admin set deleted_at = '$currentDate' where id = '$readid'");
+    }else{
+        query("update admin set deleted_at = null where id = '$readid'");
+    }
 }
 
 
