@@ -55,8 +55,7 @@ if (isset($_POST['submit'])) {
         if ($_FILES['photo']['name'] != '') {
             $imageResponse = uploadFile($_FILES['photo']);
         }
-
-        if (isset($_FILES['photo']['name']) && $imageResponse != null) { //no upload file
+        if(isset($imageResponse)) { //no upload file
             if ($imageResponse[1] != 0) { //success upload file
                 //insert record
                 query("insert into admin (username,password,phone_no,email,gender,image,created_at)
@@ -70,8 +69,8 @@ if (isset($_POST['submit'])) {
             }
         } else {
             //insert record without image
-            query("insert into admin (username,password,phone_no,email,gender,image,created_at)
-                        values('$username','$hashpass','$phone_no','$email','$gender','','$currentDate')");
+            query("insert into admin (username,password,phone_no,email,gender,created_at)
+                        values('$username','$hashpass','$phone_no','$email','$gender','$currentDate')");
 
             //redirect back
             ?><script>window.location.href = "index.php"</script><?php

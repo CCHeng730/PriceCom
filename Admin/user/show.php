@@ -104,7 +104,7 @@ $userfetch = fetch(query("select * from user where id = '$userid'"));
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-lg-3 col-form-label text-right">Gender</label>
                                                 <div class="col-lg-9 col-xl-6">
-                                                    <input value="<?=(($userfetch['gender'] ==1))?'Male':'Female'?>" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
+                                                    <input value="<?=(($userfetch['gender'] ==0))?'Male':'Female'?>" class="form-control form-control-lg form-control-solid" style="background-color: #EFF6FF;" type="text"readonly />
                                                 </div>
                                             </div>
                                             <div class="row">

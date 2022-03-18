@@ -66,8 +66,7 @@ if(isset($_POST['submit'])){
             $imageResponse = uploadFile($_FILES['photo']);
         }
 
-
-        if ($imageResponse != null) { //upload file
+        if (isset($imageResponse)) { //upload file
             if ($imageResponse[1] != 0) { //success upload file
                 //update record
                 query("update admin set username='$username', phone_no='$phone_no', email='$email',gender='$gender',image='$imageResponse[0]'

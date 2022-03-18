@@ -6,6 +6,7 @@ if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $phone_no = $_POST['phone_no'];
     $email = $_POST['email'];
+    $gender = $_POST['gender'];
     $password = $_POST['password'];
     $confirm = $_POST['comfirm_password'];
 
@@ -21,6 +22,10 @@ if (isset($_POST['submit'])) {
         $perror = "*This field is required";
     }elseif ($phoneUnique > 0){
         $perror = "*This phone number has already been taken! <a href='User/auth/login.php'><u>Login Now?</u></a>";
+    }
+    //gender validation
+    if ($gender == "") {
+        $gerror = "*This field is required";
     }
     //email validation
     if ($email == "") {
@@ -41,8 +46,8 @@ if (isset($_POST['submit'])) {
 
         $currentDate = date('Y-m-d H:i:s');
         //insert query
-        query("Insert into user (username,password,phone_no,email,gender,status,image,created_at)
-        values('$username','$hashpass','$phone_no','$email','test',1,'test','$currentDate')");
+        query("Insert into user (username,password,phone_no,email,gender,status,created_at)
+        values('$username','$hashpass','$phone_no','$email','$gender',1,'$currentDate')");
 
         //redirect back
         ?><script>window.location.href="login.php"</script><?php
@@ -115,6 +120,14 @@ if (isset($_POST['submit'])) {
                                     <input class="form-control h-auto form-control-solid py-4 px-8" type="number"
                                            placeholder="Phone Number" name="phone_no" autofocus required/>
                                     <span class="error text-danger"><?= (isset($perror)) ? $perror : "" ?></span>
+                                </div>
+                                <div class="form-group mb-5">
+                                    <select name="gender" class="form-control h-auto form-control-solid py-4 px-8">
+                                        <option value="null"> -- Choose Your Gender -- </option>
+                                        <option value="0">Male</option>
+                                        <option value="1">Female</option>
+                                    </select>
+                                    <span class="error text-danger"><?= (isset($gerror)) ? $perror : "" ?></span>
                                 </div>
                                 <div class="form-group mb-5">
                                     <input class="form-control h-auto form-control-solid py-4 px-8" type="password"

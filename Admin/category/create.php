@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
             $imageResponse = uploadFile($_FILES['photo']);
         }
 
-        if (isset($_FILES['photo']['name']) && $imageResponse != null) { //no upload file
+        if (isset($imageResponse)) { //no upload file
             if ($imageResponse[1] != 0) { //success upload file
                 //insert record
                 query("insert into category (name,status,image,created_at)

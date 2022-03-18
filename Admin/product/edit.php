@@ -168,7 +168,7 @@ if(isset($_POST['submit'])){
                                                                     $categoryQuery = query("select * from category where deleted_at IS NULL");
                                                                     while($category=fetch($categoryQuery)) {
                                                                 ?>
-                                                                    <option value="<?=$category['id']?>" <?=  ($productfetch['category_id'] == $category['id'])?'selected': (($_POST['category'] == $category['id'])?'selected':'')?>><?=$category['name']?></option>
+                                                                    <option value="<?=$category['id']?>" <?= ($productfetch['category_id'] == $category['id'])?'selected':'' ?>><?=$category['name']?></option>
                                                                 <?php
                                                                     }
                                                                 ?>

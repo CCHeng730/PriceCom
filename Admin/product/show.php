@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $sname = $_POST['sname'];
     $price = $_POST['price'];
     
-    $StoreNameUnique = row(query("select * from productstore where name = '$sname'"));
+    $StoreNameUnique = row(query("select * from productstore where name = '$sname' and product_id = 'productid' "));
 
     if ($sname == "") {
         $serror = "*This field is required";
@@ -52,7 +52,7 @@ foreach($store_fetchall as $p_store)
     if(isset($_POST["editsubmit_".$storeid])){
         $edit_sname = $_POST['edit_sname'];
         $edit_price = $_POST['edit_price'];
-        $EditStoreNameUnique = row(query("select * from productstore where name = '$edit_sname' and id != '$storeid'"));
+        $EditStoreNameUnique = row(query("select * from productstore where name = '$edit_sname' and id != '$storeid' and product_id = 'productid' "));
 
         if ($edit_sname == "") {
             $es_error = "*This field is required";
@@ -257,7 +257,7 @@ foreach($store_fetchall as $p_store)
                                                         <div style="width: 5%" class="tw-text-black tw-font-semibold">:</div>
                                                     </div>
                                                     <div class="tw-py-3 col-6">
-                                                        <div class="tw-line-clamp-2">RM <?= $productstore['price'] ?></div>
+                                                        <div class="tw-line-clamp-2">RM <?= number_format($productstore['price'], 2, '.', ' ') ?></div>
                                                     </div>
                                                     <div class="tw-py-1 col-2">
                                                         <button type="button" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="modal" data-target="#addStore_<?=$productstore['id']?>">
