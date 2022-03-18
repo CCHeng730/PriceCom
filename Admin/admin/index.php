@@ -6,7 +6,7 @@ if(!isset($_SESSION['aid'])) { //check if logged in
     ?><script>window.location.href="../auth/login.php"</script><?php
 }
 
-$adminQuery = query("select * from admin where deleted_at IS NULL");
+$adminQuery = query("select * from admin");
 $total_admin = mysqli_num_rows($adminQuery);
 $currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]' "));
 
@@ -115,9 +115,13 @@ $currentuserFetch = fetch(query("select * from admin where id = '$_SESSION[aid]'
                                                             <a href="Admin/admin/edit.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" class="tw-text-white tw-bg-yellow-400 tw-mx-2 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold">Edit</a>
                                                                 <?php
                                                                     if($admin['id']!=$_SESSION['aid']){
-                                                                ?>
-                                                            <a href="Admin/admin/delete.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
-                                                            <?php
+                                                                        if($admin['deleted_at'] == null){
+                                                                            ?><a href="Admin/admin/delete.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" class="tw-text-white tw-bg-red-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to terminate this admin?')">Terminate</a>
+                                                                            <?php
+                                                                        }else{
+                                                                            ?><a href="Admin/admin/delete.php?id=<?=$admin['id']?>&auth=<?=md5($admin['id']).sha1($admin['id'])?>" class="tw-text-white tw-bg-purple-400 tw-px-5 tw-py-2 tw-rounded-md tw-text-lg tw-font-semibold" onclick="return confirm('Are you sure to activate this admin?')">Reactivate</a>
+                                                                            <?php
+                                                                        }
                                                                     }
                                                             }
                                                             ?>
